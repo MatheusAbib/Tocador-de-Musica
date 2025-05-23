@@ -246,20 +246,20 @@
             height: 70vh;
             left: 0;
             right: 0;
-            background: rgba(217, 231, 226, 0.582); /* Cor sólida sem gradiente */
+            background: rgba(217, 231, 226, 0.801); /* Cor sólida sem gradiente */
             backdrop-filter: blur(6px);
 
             border: 1px solid rgba(255, 255, 255, 0.443);
 
             border-radius: 20px 20px 0 0;
             box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.2);
-    padding: 25px 25px 15px; /* Ajuste no padding inferior */
+            padding: 25px 25px 15px; /* Ajuste no padding inferior */
             max-height: 60vh;
             overflow-y: auto;
             overflow: hidden;
 
             transform: translateY(100%);
-    transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+            transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
             z-index: 2000;
             display: none;
 }
@@ -286,6 +286,8 @@
         z-index: 1999;
         display: none;
         backdrop-filter: blur(3px);
+            background: rgba(0, 0, 0, 0.521);
+
     }
 
 .playlist-header {
@@ -615,7 +617,7 @@ painel-informacoes.active ~ .overlay {
 }
 
 .painel-informacoes::-webkit-scrollbar-track {
-    background: hsla(159, 53%, 69%, 0.2); /* Cor do track - combina com seu gradiente */
+    background: hsla(159, 100%, 44%, 0.2); /* Cor do track - combina com seu gradiente */
     border-radius: 10px;
 }
 
