@@ -67,12 +67,18 @@
         <h1>Vintage Music Player</h1>
     </header>
 
-    <div class="search">
-        <input type="text" id="searchInput" placeholder="Pesquisar músicas...">
-        <button class="pesquisa" onclick="search()">Pesquisar</button>
-    </div>
-    
-    <div id="results"> </div>
+   <div class="search">
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Pesquisar músicas..."
+    onkeydown="if (event.key === 'Enter') search()"
+  >
+  <button class="pesquisa" onclick="search()">Pesquisar</button>
+</div>
+
+<div id="results"></div>
+
 
   <div id="controls">
         <button class="clique" onclick="togglePlayPause()">
