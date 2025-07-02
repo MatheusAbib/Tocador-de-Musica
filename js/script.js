@@ -5,43 +5,127 @@
 
         // Lista de músicas (simulando um banco de dados)
         const allResults = [
-            { title: 'Disrespectful', artist: 'Doja cat', audioSrc: 'musica/disrespectful - doja cat (slowed + reverb).mp3' },
+//Lisa
+            { title: 'Chill', artist: 'LISA', audioSrc: 'musica/LISA - Chill (Lyric Video) [pZh-Q8wfwU8].mp3' },
+            { title: 'Born Again', artist: 'LISA, Raye, Doja Cat', audioSrc: 'musica/LISA - Born Again feat. Doja Cat & RAYE (Lyric Video) [zcmCAo_kHmU].mp3' },
+            { title: 'New Womean', artist: 'LISA, Rosália', audioSrc: 'musica/LISA - New Woman feat ROSALÍA (Lyric Video) [qwwQlJW10uc].mp3' },
+            { title: 'Thunder', artist: 'LISA', audioSrc: 'musica/LISA - Thunder (Lyric Video) [dzqmRAec9rs].mp3' },
+
+//Doja Cat
             { title: 'Options', artist: 'Doja cat', audioSrc: 'musica/ytmp3free.cc_doja-cat-options-visualizer-ft-jid-youtubemp3free.org.mp3' },
+	        { title: 'Lose My Mind', artist: 'Doja cat, Don Toliver', audioSrc: 'musica/Lose My Mind (feat. Doja Cat) [jQJWsL6Gscc].mp3' },
+
             { title: 'Demons', artist: 'Doja cat', audioSrc: 'musica/utomp3.com - Doja Cat  Demons Official Video.mp3' },
-            { title: 'Consideration', artist: 'Rihanna,SZA', audioSrc: 'musica/utomp3.com - Consideration.mp3' },
-            { title: 'Loyalty', artist: 'Rihanna, Kendrick Lamar', audioSrc: 'musica/utomp3.com - Kendrick Lamar  LOYALTY ft Rihanna.mp3' },
+ 	        { title: 'Been like this', artist: 'Doja Cat', audioSrc: 'musica/utomp3.com - Doja Cat  Been Like This Visualizer.mp3' },
+            { title: 'Candy', artist: 'Doja Cat', audioSrc: 'musica/utomp3.com - Doja Cat  Candy Audio.mp3' },
+
+//Summer Walker
             { title: 'Insane', artist: 'Summer Walker', audioSrc: 'musica/utomp3.com - Summer Walker  Insane Lyric Video.mp3' },
+
+//Raye
             { title: 'Escapism', artist: 'Raye', audioSrc: 'musica/utomp3.com - RAYE 070 Shake  Escapism Official Music Video.mp3' },
-            { title: 'Flip A Switch', artist: 'Raye, Coi Leray', audioSrc: 'musica/utomp3.com - RAYE  Flip A Switch ft Coi Leray.mp3' },
-            { title: 'Bodyguard', artist: 'Beyonce', audioSrc: 'musica/utomp3.com - Beyoncé  BODYGUARD Official Lyric Video.mp3' },
+            { title: 'Flip a Switch', artist: 'Raye, Coi Leray', audioSrc: 'musica/utomp3.com - RAYE  Flip A Switch ft Coi Leray.mp3' },
             { title: 'Escapism REMIX', artist: 'Raye', audioSrc: 'musica/utomp3.com - Escapism 4am Remix.mp3' },
-            { title: '10%', artist: 'Kali Uchis', audioSrc: 'musica/utomp3.com - KAYTRANADA  10 Official Video ft Kali Uchis.mp3' },
-            { title: 'Shes My Collar', artist: 'Kali Uchis, Gorillaz', audioSrc: 'musica/utomp3.com - Gorillaz  Shes My Collar HQ.mp3' },
-            { title: 'Love Girl', artist: 'Andrea Valle', audioSrc: 'musica/utomp3.com - Andrea Vallé  Lovergirl.mp3' },
-            { title: 'Downtown', artist: 'Anitta, J balvin', audioSrc: 'musica/utomp3.com - Anitta  J Balvin  Downtown Official Music Video.mp3' },
-            { title: 'Maria Elegante', artist: 'Anitta', audioSrc: 'musica/utomp3.com - Anitta  Maria Elegante Feat Afro B Official Audio.mp3' },
-            { title: 'Sushi for breakfast', artist: 'BAYLI', audioSrc: 'musica/utomp3.com - BAYLI  sushi for breakfast lyric visualizer.mp3' },
+            { title: 'Hard out Here', artist: 'Raye', audioSrc: 'musica/utomp3.com - RAYE  Hard Out Here.mp3' },
+            { title: 'Genesis', artist: 'Raye', audioSrc: 'musica/RAYE - Genesis. [aOX8gyc27K4].mp3' },
+
+//Beyonce
+            { title: 'Bodyguard', artist: 'Beyonce', audioSrc: 'musica/utomp3.com - Beyoncé  BODYGUARD Official Lyric Video.mp3' },
             { title: 'Haunted', artist: 'Beyonce', audioSrc: 'musica/utomp3.com - Beyoncé  Haunted Audio.mp3' },
             { title: 'Virgos groove', artist: 'Beyonce', audioSrc: 'musica/utomp3.com - Beyoncé  VIRGOS GROOVE Official Lyric Video.mp3' },
+            { title: 'Flawless REMIX', artist: 'Beyonce, Nicki Minaj', audioSrc: 'musica/Flawless Remix [qZaLAAcehX4].mp3' },
+            { title: '6 Inch', artist: 'Beyonce, The Weeknd', audioSrc: 'musica/6 Inch [UKMmfBkrhtY].mp3' },
+            
+//Gorillaz
+            { title: 'Shes My Collar', artist: 'Gorillaz, Kali Uchis', audioSrc: 'musica/utomp3.com - Gorillaz  Shes My Collar HQ.mp3' },
+            { title: 'Andromeda', artist: 'Gorillaz', audioSrc: 'musica/Gorillaz - Andromeda (Official Audio) [9W44NWYwa1g].mp3' },
+
+//Kali Uchis
+            { title: '10%', artist: 'Kali Uchis', audioSrc: 'musica/utomp3.com - KAYTRANADA  10 Official Video ft Kali Uchis.mp3' },
+            { title: 'Feel Like a Fool', artist: 'Kali Uchis', audioSrc: 'musica/utomp3.com - Feel Like A Fool.mp3' },
+            { title: 'Fall Apart,', artist: 'Kali Uchis', audioSrc: 'musica/Kali Uchis - Fall Apart, (Audio) [BRLnd0EJ-3Y].mp3' },
+            { title: 'Dead To Me', artist: 'Kali Uchis', audioSrc: 'musica/Dead To Me [OcUDK4kAUIw].mp3' },
+            { title: 'Just a Stranger', artist: 'Kali Uchis', audioSrc: 'musica/Just A Stranger - Kali Uchis ~ Lyrics [6l69L1HJeQY].mp3' },
+            { title: 'I Wish You Roses', artist: 'Kali Uchis', audioSrc: 'musica/Kali Uchis - I Wish you Roses (Official Music Video) [-Y7zc0eO26k].mp3' },
+            { title: 'Si Nos Es Contigo REMIX', artist: 'Kali Uchis', audioSrc: 'musica/Cris MJ, Kali Uchis, JHAYCO - SI NO ES CONTIGO REMIX [SqAGWRpccm0].mp3' },
+            { title: 'Deserve Me', artist: 'Kali Uchis, Summer Walker', audioSrc: 'musica/Kali Uchis, Summer Walker - Deserve Me [Official Audio] [7dq8CvY9a0g].mp3' },
+
+//Andrea Valle
+            { title: 'Lover Girl', artist: 'Andrea Valle', audioSrc: 'musica/utomp3.com - Andrea Vallé  Lovergirl.mp3' },
+            { title: 'WIYLL', artist: 'Andrea Valle', audioSrc: 'musica/utomp3.com - WIYLL.mp3' },
+
+//Anitta
+            { title: 'Downtown', artist: 'Anitta, J balvin', audioSrc: 'musica/utomp3.com - Anitta  J Balvin  Downtown Official Music Video.mp3' },
+            { title: 'Maria Elegante', artist: 'Anitta', audioSrc: 'musica/utomp3.com - Anitta  Maria Elegante Feat Afro B Official Audio.mp3' },
+            { title: 'Sabana', artist: 'Anitta', audioSrc: 'musica/Anitta - Sabana (Official Audio) [KDeraV6cWZo].mp3' },
+
+//Billie Elish
             { title: 'I didnt change my number', artist: 'Billie Elish', audioSrc: 'musica/utomp3.com - Billie Eilish  I Didnt Change My Number Official Lyric Video.mp3' },
-            { title: 'Been like this', artist: 'Doja Cat', audioSrc: 'musica/utomp3.com - Doja Cat  Been Like This Visualizer.mp3' },
-            { title: 'Candy', artist: 'Doja Cat', audioSrc: 'musica/utomp3.com - Doja Cat  Candy Audio.mp3' },
-            { title: 'Feel like a fool', artist: 'Kali Uchis', audioSrc: 'musica/utomp3.com - Feel Like A Fool.mp3' },
+            { title: 'Chihiro', artist: 'Billie Elish', audioSrc: 'musica/Billie Eilish - CHIHIRO (Official Lyric Video) [e_AZJzYe7CU].mp3' },
+
+//Hotel Ugly
             { title: 'Shut Up My Moms Calling', artist: 'Hotel Ugly', audioSrc: 'musica/utomp3.com - Hotel Ugly  Shut Up My Moms Calling.mp3' },
+
+//Iza
             { title: 'Nunca Mais', artist: 'IZA', audioSrc: 'musica/utomp3.com - IZA  Nunca Mais Visualizer.mp3' },
             { title: 'Bonzão', artist: 'IZA', audioSrc: 'musica/utomp3.com - IZA Tiwa Savage  Bomzão Visualizer.mp3' },
+
+//Kendrick Lamar
             { title: 'The Recipe', artist: 'Kendrick Lamar', audioSrc: 'musica/utomp3.com - Kendrick Lamar  The Recipe Lyric Video ft Dr Dre (1).mp3' },
             { title: 'All the stars', artist: 'Kendrick Lamar, SZA', audioSrc: 'musica/utomp3.com - Kendrick Lamar SZA  All The Stars.mp3' },
-            { title: 'Wolves', artist: 'Lauren Jauregui', audioSrc: 'musica/utomp3.com - Lauren Jauregui  Wolves feat Ty Dolla ign  Russ Official Lyric Video.mp3' },
+            
+//Rihanna 
+	        { title: 'Consideration', artist: 'Rihanna,SZA', audioSrc: 'musica/utomp3.com - Consideration.mp3' },
+            { title: 'Loyalty', artist: 'Rihanna, Kendrick Lamar', audioSrc: 'musica/utomp3.com - Kendrick Lamar  LOYALTY ft Rihanna.mp3' },
+            { title: 'Same Old Mistakes', artist: 'Rihanna', audioSrc: 'musica/Same Ol’ Mistakes [y3OBsTTUsjk].mp3' },
+
+//Marina Sena
             { title: 'Pra ficar comigo', artist: 'Marina Sena', audioSrc: 'musica/utomp3.com - Marina Sena  Pra Ficar Comigo Visualizer.mp3' },
             { title: 'Que tal', artist: 'Marina Sena', audioSrc: 'musica/utomp3.com - Marina Sena  Que Tal feat Fleezus Visualizer.mp3' },
-            { title: 'Hard out here', artist: 'Raye', audioSrc: 'musica/utomp3.com - RAYE  Hard Out Here.mp3' },
+            { title: 'Desmitificar', artist: 'Marina Sena', audioSrc: 'musica/Marina sena - desmitificar _ Lyrics _ [WdlIm6e9uoQ].mp3' },
+
+//Tame impala
             { title: 'Borderline', artist: 'Tame Impala', audioSrc: 'musica/utomp3.com - Tame Impala  Borderline Official Audio.mp3' },
+
+//Jennie
+            { title: 'Start a War', artist: 'JENNIE', audioSrc: 'musica/JENNIE - start a war (Official Lyric Video) [n-KlygYrXV8].mp3' },
+            { title: 'Zen', artist: 'JENNIE', audioSrc: 'musica/JENNIE - ZEN (Official Lyric Video) [Q_pdWJMZx30].mp3' },
+            { title: 'Extral', artist: 'JENNIE, Doechii', audioSrc: 'musica/JENNIE, Doechii - ExtraL (Official Lyric Video) [oFDBWsnWt3c].mp3' },
+            { title: 'One Of The Girls', artist: 'The Weeknd, JENNIE', audioSrc: 'musica/The Weeknd, JENNIE & Lily Rose Depp - One Of The Girls (Official Audio) [f1r0XZLNlGQ].mp3' },
+
+//The Weeknd
             { title: 'Popular', artist: 'The Weeknd, Madonna', audioSrc: 'musica/utomp3.com - The Weeknd Playboi Carti Madonna  Popular Official Audio.mp3' },
+            { title: 'São Paulo', artist: 'The Weeknd, Anitta', audioSrc: 'musica/São Paulo [p8_ugAjWI5I].mp3' },
+
+//Charli XCX
+            { title: 'Guess REMIX', artist: 'Charli xcx, Billie Elish', audioSrc: 'musica/Charli xcx - Guess featuring billie eilish (official video) [huGd4efgdPA].mp3' },
+            { title: 'Everything is Romantic', artist: 'Charli xcx', audioSrc: 'musica/Charli xcx - Everything is romantic (official lyric video) [FTIvFD7TCVg].mp3' },
+            { title: 'Talk Talk REMIX', artist: 'Charli xcx', audioSrc: 'musica/Charli xcx - Talk talk featuring troye sivan (official lyric video) [K5jyIoPbu4M].mp3' },
+            { title: '365 REMIX', artist: 'Charli xcx', audioSrc: 'musica/Charli xcx - 365 featuring shygirl (official audio) [oslpP-s_w4E].mp3' },
+//Lady Gaga
+            { title: 'Abracadabra', artist: 'Lady Gaga', audioSrc: 'musica/Lady Gaga - Abracadabra (Official Audio) [LXuSOkf2M3c].mp3' },
+            { title: 'ZombieBoy', artist: 'Lady Gaga', audioSrc: 'musica/Lady Gaga - Zombieboy (Official Audio) [xWS0aRqzP6E].mp3' },
+            { title: 'Sour Candy', artist: 'Lady Gaga, BLACKPINK', audioSrc: 'musica/Lady Gaga, BLACKPINK - Sour Candy (Audio) [fnPn6At3v28].mp3' },
+            { title: 'Judas', artist: 'Lady Gaga', audioSrc: 'musica/Lady Gaga - Judas (Audio) [UaozB9_ufa8].mp3' },
+
+//Miley Cyrus
+            { title: 'Reborn', artist: 'Miley Cyrus', audioSrc: 'musica/Miley Cyrus - Reborn (Official Lyric Video) [id3gaI4gD_8].mp3' },
+
+//Tyla
             { title: 'Truth or Dare', artist: 'Tyla', audioSrc: 'musica/utomp3.com - Tyla  Truth or Dare Official Lyric Video.mp3' },
-            { title: 'WIYLL', artist: 'Andrea Valle', audioSrc: 'musica/utomp3.com - WIYLL.mp3' },
-            { title: 'Karma', artist: 'Jojo Siwa', audioSrc: 'musica/utomp3.com - JoJo Siwa  Karma Official Video.mp3' }
+
+//Doechii
+            { title: 'Anxiety', artist: 'Doechii', audioSrc: 'musica/Doechii - Anxiety (Lyrics) [1EF0VOd3WGA].mp3' },
+            { title: 'Alter Ego', artist: 'Doechii', audioSrc: 'musica/Doechii & JT - Alter Ego (Audio) [x-4uwdtB6eY].mp3' },
+            { title: 'Boiled Peanuts', artist: 'Doechii', audioSrc: 'musica/Doechii - BOILED PEANUTS (Audio) [YzizrbBFTak].mp3' },
+
+//sevdaliza
+            { title: 'Messiah', artist: 'Sevdaliza', audioSrc: 'musica/SEVDALIZA - MESSIAH (OFFICIAL MUSIC VIDEO) [e8EwHTqeQKU].mp3' },
+            { title: 'High Alone', artist: 'Sevdaliza', audioSrc: 'musica/SEVDALIZA - HIGH ALONE [qSmGNqkzC5M].mp3' },
+            { title: 'Hubris', artist: 'Sevdaliza', audioSrc: 'musica/SEVDALIZA - HUBRIS [aYXZoxltYuU].mp3' },
+            { title: 'Bluecid', artist: 'Sevdaliza', audioSrc: 'musica/SEVDALIZA - Bluecid (legendado_tradução) [NB7U_XUIgLI].mp3' },
         ];
+
 
          function playSound(soundId) {
             const sound = document.getElementById(soundId);
