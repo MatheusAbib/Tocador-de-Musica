@@ -263,6 +263,7 @@
     border-radius: 5px;
     width: 0%;
     transition: width 0.1s linear;
+    
 }
 
 .progress-container:hover .progress-bar {
@@ -1154,3 +1155,28 @@ painel-informacoes.active ~ .overlay {
     text-overflow: ellipsis;
 }
 
+    /* Estilo atualizado para o botão de reinício */
+    .restart-song {
+        position: absolute;
+        right: 0; /* Posiciona no canto direito */
+        top: -30px; /* Posiciona acima da barra de progresso */
+        border: none;
+        border-radius: 50%;
+        width: 15px;
+        height:15px;
+        color: white;
+        cursor: pointer;
+        display: none; /* Inicialmente escondido */
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 1;
+    }
+    
+    .restart-song:hover {
+        transform: scale(1.1);
+    }
+    
+    .progress-container {
+        position: relative; /* Container precisa ser relativo para posicionamento absoluto do botão */
+    }

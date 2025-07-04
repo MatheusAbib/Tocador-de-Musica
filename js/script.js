@@ -240,6 +240,63 @@
   
         ];
 
+        const progressBar = document.getElementById('progressBar');
+        const currentTimeDisplay = document.getElementById('currentTime');
+        const restartSongBtn = document.getElementById('restartSong');
+        
+        // Função para formatar o tempo (segundos para MM:SS)
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+        
+        // Atualiza a barra de progresso e o tempo atual
+        audioPlayer.addEventListener('timeupdate', function() {
+            const currentTime = audioPlayer.currentTime;
+            const duration = audioPlayer.duration;
+            
+            // Atualiza a barra de progresso
+            if (duration) {
+                const progressPercent = (currentTime / duration) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+            }
+            
+            // Atualiza o tempo atual
+            currentTimeDisplay.textContent = formatTime(currentTime);
+        });
+        
+        // Função para reiniciar a música
+        function restartSong() {
+            if (audioPlayer.src) {
+                audioPlayer.currentTime = 0;
+                progressBar.style.width = '0%';
+                currentTimeDisplay.textContent = '0:00';
+                
+                // Se a música estava pausada, toca ao reiniciar
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                }
+            }
+        }
+        
+        // Event listener para o botão de reinício
+        restartSongBtn.addEventListener('click', restartSong);
+        
+        // Exemplo de como carregar uma música (substitua com sua lógica real)
+        function loadExampleSong() {
+            audioPlayer.src = 'sua-musica.mp3';
+            audioPlayer.load();
+            
+            // Quando os metadados estiverem carregados, mostra a duração
+            audioPlayer.addEventListener('loadedmetadata', function() {
+                document.getElementById('duration').textContent = formatTime(audioPlayer.duration);
+            });
+        }
+        
+        // Carrega uma música de exemplo (remova na implementação real)
+        loadExampleSong();
+
 
          function playSound(soundId) {
             const sound = document.getElementById(soundId);
@@ -346,7 +403,13 @@ function removeFromPlaylist(event, title, artist) {
 // Função para tocar música
 function playMusic(audioSrc, title, artist) {
     currentAudioSrc = audioSrc;
+    audioPlayer.src = audioSrc;
 
+     audioPlayer.play().then(() => {
+            isPlaying = true;
+            // Mostra o botão de reinício
+            document.getElementById('restartSong').style.display = 'flex';
+     
     if (audioPlayer.src !== audioSrc) {
         audioPlayer.src = audioSrc;
         document.getElementById('currentTime').textContent = '0:00';
@@ -370,6 +433,7 @@ function playMusic(audioSrc, title, artist) {
         `<div class="now-playing">${title} - ${artist}</div>`);
 
     atualizarPlaylist();
+});
 }
 
 
