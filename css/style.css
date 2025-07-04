@@ -44,21 +44,101 @@
             position: relative;
         }
 
-        .cdrom {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            mask: radial-gradient(farthest-side circle, #0000 15%, #0008 0 15.5%, #0005 0 20%, #0008 0 20.5%, #0005 0 25%, #000 0 97%, #0005 0 99%, #000c 0);
-            background: silver;
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background:
-                repeating-conic-gradient(from 0.15turn, #f000 0 12%, #f003 15%, #ff03, #0f03, #0ff3, #00f3, #f0f3 23%, #fff0 25% 50%),
-                repeating-conic-gradient(from -0.1turn, #fff0 0 10%, #fffa 15% 20%, #fff0 25% 50%)
-                #ddd;
-        }
+/* Deixe o CSS base do CD como está */
+.cdrom {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    mask: radial-gradient(farthest-side circle, #0000 15%, #0008 0 15.5%, #0005 0 20%, #0008 0 20.5%, #0005 0 25%, #000 0 97%, #0005 0 99%, #000c 0);
+    background: silver;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background:
+        repeating-conic-gradient(from 0.15turn, #f000 0 12%, #f003 15%, #ff03, #0f03, #0ff3, #00f3, #f0f3 23%, #fff0 25% 50%),
+        repeating-conic-gradient(from -0.1turn, #fff0 0 10%, #fffa 15% 20%, #fff0 25% 50%)
+        #ddd;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+/* Animação Premium */
+.cdrom.girar {
+    animation: 
+        girarSuave 2.7s linear infinite,
+        pulsarBrilho 4s ease-in-out infinite alternate;
+    
+    /* Efeito de aura */
+    &::after {
+        content: '';
+        position: absolute;
+        top: -15%;
+        left: -15%;
+        right: -15%;
+        bottom: -15%;
+        background: 
+            radial-gradient(circle, 
+                rgba(100, 200, 255, 0.1) 0%, 
+                transparent 70%);
+        border-radius: 50%;
+        animation: 
+            expandirAura 3s ease-out infinite,
+            girarAura 8s linear infinite reverse;
+        opacity: 0.7;
+        z-index: -1;
+    }
+}
+
+/* Keyframes premium */
+@keyframes girarSuave {
+    from { transform: translateX(-50%) rotate(0deg); }
+    to { transform: translateX(-50%) rotate(360deg); }
+}
+
+@keyframes pulsarBrilho {
+    0% { 
+        filter: brightness(1.01) drop-shadow(0 0 5px rgba(100, 180, 255, 0.3));
+    }
+    50% { 
+        filter: brightness(1.15) drop-shadow(0 0 15px rgba(100, 200, 255, 0.6));
+    }
+    100% { 
+        filter: brightness(1.01) drop-shadow(0 0 5px rgba(100, 180, 255, 0.3));
+    }
+}
+
+@keyframes expandirAura {
+    0%, 100% { transform: scale(0.95); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+@keyframes girarAura {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+
+@keyframes voar {
+    0% { 
+        transform: translate(0, 0) scale(0.3); 
+        opacity: 0; 
+    }
+    10% { 
+        opacity: 0.8; 
+    }
+    90% { 
+        opacity: 0.8; 
+    }
+    100% { 
+        transform: 
+            translate(
+                calc(var(--x) * 50px), 
+                calc(var(--y) * 50px)
+            ) scale(1); 
+        opacity: 0; 
+    }
+}
 
         h1 {
             text-align: center;
@@ -199,7 +279,7 @@
 
          footer {
             position: fixed;
-            bottom: 40px !important;
+            bottom: 60px !important;
             width: 100%;
             padding: 20px;
             font-size: 0.9rem;
@@ -589,6 +669,12 @@ painel-informacoes.active ~ .overlay {
 
 /* Ajuste para mobile */
 @media (max-width: 768px) {
+
+    .cdrom{
+        width: 55px ;
+        height: 55px ;
+        top: -20px;
+    }
     .painel-informacoes {
         width: 80%;
         left: -85%;
@@ -749,6 +835,9 @@ painel-informacoes.active ~ .overlay {
             .container{
                 padding-bottom: 20px;
 
+            }
+              .visualizer {
+                display: none !important;
             }
     
             }
@@ -982,7 +1071,7 @@ painel-informacoes.active ~ .overlay {
     gap: 3px;
     position: fixed;
     right: 20px; /* Distância da borda direita */
-    bottom: 57px; /* Distância do player de música */
+    bottom: 77px; /* Distância do player de música */
     z-index: 101;
     background: rgba(0, 0, 0, 0.3);
     padding: 5px 10px;
@@ -1008,14 +1097,8 @@ painel-informacoes.active ~ .overlay {
 
 @media (max-width: 768px) {
     .visualizer {
-        height: 30px;
-        bottom: 60px; /* Ajuste para mobile */
-        right: 15px; /* Distância menor em mobile */
-        padding: 3px 8px;
-    }
-    
-    .visualizer .bar {
-        width: 2px;
+      display: none !important;
+
     }
 
     .painel-toggle {

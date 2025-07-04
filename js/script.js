@@ -343,32 +343,36 @@ function removeFromPlaylist(event, title, artist) {
 }
 
 // Atualize a função playMusic para destacar na playlist
+// Função para tocar música
 function playMusic(audioSrc, title, artist) {
     currentAudioSrc = audioSrc;
-    
+
     if (audioPlayer.src !== audioSrc) {
         audioPlayer.src = audioSrc;
         document.getElementById('currentTime').textContent = '0:00';
         document.getElementById('progressBar').style.width = '0%';
     }
-    
+
     audioPlayer.play();
     isPlaying = true;
     playPauseIcon.classList.remove('fa-play');
     playPauseIcon.classList.add('fa-pause');
-    
-    // Atualiza o player inferior
-    const nowPlayingElement = document.querySelector('.now-playing');
-    if (nowPlayingElement) {
-        nowPlayingElement.textContent = `${title} - ${artist}`;
-    } else {
-        document.querySelector('.music-player').insertAdjacentHTML('afterbegin', 
-            `<div class="now-playing">${title} - ${artist}</div>`);
-    }
-    
-    // Atualiza a playlist para destacar a música atual
+
+    // Faz o CD girar
+    document.querySelector('.cdrom')?.classList.add('girar');
+
+    // Remove o título anterior se existir
+    const previousTitle = document.querySelector('.now-playing');
+    if (previousTitle) previousTitle.remove();
+
+    // Mostra a música atual no player
+    document.querySelector('.music-player').insertAdjacentHTML('afterbegin', 
+        `<div class="now-playing">${title} - ${artist}</div>`);
+
     atualizarPlaylist();
 }
+
+
 
         // Função para favoritar/desfavoritar música
         function favoritarMusica(starElement, event) {
@@ -496,49 +500,35 @@ resultDiv.innerHTML = `
     }, 100);
 }
         // Função para tocar música
-        function playMusic(audioSrc, title, artist) {
-    currentAudioSrc = audioSrc;
     
-    if (audioPlayer.src !== audioSrc) {
-        audioPlayer.src = audioSrc;
-        document.getElementById('currentTime').textContent = '0:00';
-        document.getElementById('progressBar').style.width = '0%';
-    }
-    
-    audioPlayer.play();
-    isPlaying = true;
-    playPauseIcon.classList.remove('fa-play');
-    playPauseIcon.classList.add('fa-pause');
-    
-    // Mostra a música atual no player
-    document.querySelector('.music-player').insertAdjacentHTML('afterbegin', 
-        `<div class="now-playing">${title} - ${artist}</div>`);
-    
-    // Remove o título anterior se existir
-    const previousTitle = document.querySelector('.now-playing');
-    if (previousTitle) previousTitle.remove();
-}
 
         // Função para alternar play/pause
-       function togglePlayPause() {
+function togglePlayPause() {
     playSound('click-sound');
 
-    if (isPlaying) {
-        audioPlayer.pause();
-        isPlaying = false;
-        playPauseIcon.classList.remove('fa-pause');
-        playPauseIcon.classList.add('fa-play');
+if (isPlaying) {
+    audioPlayer.pause();
+    isPlaying = false;
+    playPauseIcon.classList.remove('fa-pause');
+    playPauseIcon.classList.add('fa-play');
+
+    document.querySelector('.cdrom')?.classList.remove('girar');
+
     } else {
         if (!currentAudioSrc) {
             const firstResult = document.querySelector('.result');
             if (firstResult) {
                 firstResult.click();
+                    document.querySelector('.cdrom')?.classList.add('girar');
+
             }
         } else {
             audioPlayer.play();
             isPlaying = true;
             playPauseIcon.classList.remove('fa-play');
             playPauseIcon.classList.add('fa-pause');
+            document.querySelector('.cdrom')?.classList.add('girar');
+
         }
     }
 }
@@ -582,9 +572,11 @@ document.getElementById('playlistOverlay').addEventListener('click', mostrarOcul
         }
 
         // Evento para quando a música terminar
-        audioPlayer.addEventListener('ended', function() {
+    audioPlayer.addEventListener('ended', function() {
     isPlaying = false;
     playPauseIcon.classList.remove('fa-pause');
+    document.querySelector('.cdrom')?.classList.remove('girar');
+
     playPauseIcon.classList.add('fa-play');
     document.getElementById('progressBar').style.width = '0%';
     document.getElementById('currentTime').textContent = '0:00';
@@ -594,4 +586,4 @@ document.getElementById('playlistOverlay').addEventListener('click', mostrarOcul
     playingItems.forEach(item => item.classList.remove('playing'));
 });
 
-// Configura o analisador de áudio
+
