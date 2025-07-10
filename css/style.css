@@ -1,0 +1,2340 @@
+:root {
+            --checkbox-color: hsl(159, 53%, 69%);
+             --checkbox-playing: hsla(159, 53%, 69%, 0.719);
+            --secondary-color: #333;
+            --terciary-color: #4e4e4e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background: url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2076&q=80%22') center/cover no-repeat; 
+            min-height: 100vh;
+            background-blend-mode: multiply;
+                scrollbar-width: none;
+
+        }
+
+        ::-webkit-scrollbar {
+    display: none;
+}
+
+
+        body {
+            font-family: 'Roboto Slab', serif;
+            background: linear-gradient(
+                to top,
+                hsla(159, 71%, 85%, 0.44) 0%,
+                hsla(159, 72%, 75%, 0.416) 100%,
+                rgb(191, 239, 223));
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+                -ms-overflow-style: none;
+
+            align-items: center;
+            padding-bottom: 80px; /* Espaço para os controles */
+        }
+
+            /*Esse é o quadro principal*/
+        .container {
+            width: 90%;
+            max-width: 830px;
+            margin: 70px auto 20px;
+            padding: 20px;    
+            padding-bottom: 40px; /* Espaço para os controles */
+            border-radius: 7px;
+            box-shadow: 10px 40px 30px rgba(0, 0, 0, 0.1);
+            background-color: #d6dee79e;
+            position: relative;
+        }
+
+/* Substitua a animação do CD por esta versão melhorada */
+.cdrom {
+    /* Mantenha todas as propriedades existentes */
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    mask: radial-gradient(farthest-side circle, #0000 15%, #0008 0 15.5%, #0005 0 20%, #0008 0 20.5%, #0005 0 25%, #000 0 97%, #0005 0 99%, #000c 0);
+    background: silver;
+    position: absolute;
+    top: -37px;
+    left: 50%;
+    transform: translateX(-50%);
+    background:
+        repeating-conic-gradient(from 0.15turn, #f000 0 12%, #f003 15%, #ff03, #0f03, #0ff3, #00f3, #f0f3 23%, #fff0 25% 50%),
+        repeating-conic-gradient(from -0.1turn, #fff0 0 10%, #fffa 15% 20%, #fff0 25% 50%)
+        #ddd;
+    box-shadow: 
+        0 0 5px rgba(255, 255, 255, 0.5),
+        0 0 15px rgba(100, 200, 255, 0.3);
+    transition: filter 0.5s ease;
+     z-index: 10; /* Mantém acima do conteúdo normal */
+}
+
+.cdrom.girar {
+    animation: 
+        pulsarBrilho 6s ease-in-out infinite alternate;
+}
+
+
+.cdrom.girar::after {
+    content: '';
+    position: absolute;
+    top: -15%;
+    left: -15%;
+    right: -15%;
+    bottom: -15%;
+    background: 
+        radial-gradient(circle, 
+            rgba(100, 200, 255, 0.1) 0%, 
+            transparent 70%);
+    border-radius: 50%;
+    animation: 
+        expandirAura 3s ease-out infinite,
+        girarAura 8s linear infinite reverse;
+    opacity: 0.7;
+    z-index: -1;
+}
+
+/* Animações atualizadas */
+@keyframes girarSuave {
+    from { transform: translateX(-50%) rotate(0deg); }
+    to { transform: translateX(-50%) rotate(360deg); }
+}
+
+@keyframes pulsarBrilho {
+    0% { 
+        filter: brightness(1.07) drop-shadow(0 0 8px rgba(100, 180, 255, 0.267));
+    }
+    50% { 
+        filter: brightness(1.15) drop-shadow(0 0 20px rgba(100, 219, 255, 0.404));
+    }
+    100% { 
+        filter: brightness(1.07) drop-shadow(0 0 8px rgba(100, 180, 255, 0.26));
+    }
+}
+
+@keyframes expandirAura {
+    0%, 100% { transform: scale(0.95); opacity: 0.5; }
+    50% { transform: scale(2.4); opacity: 0.8; }
+}
+
+@keyframes girarAura {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes voar {
+    0% { 
+        transform: translate(0, 0) scale(0.3); 
+        opacity: 0; 
+    }
+    10% { 
+        opacity: 0.8; 
+    }
+    90% { 
+        opacity: 0.8; 
+    }
+    100% { 
+        transform: 
+            translate(
+                calc(var(--x) * 50px), 
+                calc(var(--y) * 50px)
+            ) scale(1); 
+        opacity: 0; 
+    }
+}
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin: 30px 0;
+            color: #333;
+        }
+
+        #title{
+            margin-top: 35px;
+        }
+
+        .search {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+            background-color: #f3f3f3c1;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"]:hover {
+            background-color: hsla(0, 0%, 100%, 0.332);
+            border: 1px solid #333;
+        }
+
+        button {
+            padding: 12px;
+            font-size: 1rem;
+            background-color: #333333cd;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #343434eb;
+        }
+
+          /*Parte principal*/
+        #results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            transition: opacity 0.3s ease;
+        }
+
+        #results:empty {
+            min-height: 0;
+        }
+
+        .result {
+            position: relative; /* Permite posicionamento absoluto interno */
+            cursor: pointer;
+            padding: 15px;
+            margin-bottom: 10px;
+
+            overflow: hidden; /* Mantém tudo dentro do card */
+            border: none;
+
+            background-color: rgb(251, 246, 239);
+            border-radius: 10px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+
+.result:hover {
+     transform: translateY(-5px);
+ 
+}
+
+/* Estilo do título da música */
+.result h3 {
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+    color: #3a3a3a;
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 3px;
+}
+
+/* Sublinhado decorativo */
+.result h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--checkbox-color);
+    transition: width 0.3s ease;
+}
+
+.result:hover h3::after {
+    width: 60px;
+}
+
+/* Estilo do nome do artista */
+.result p {
+    font-size: 0.95rem;
+    color: #666;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+}
+
+.result:hover p {
+    color: #444;
+    transform: translateX(3px);
+}
+
+/* Substitua a animação vinylAppear por esta */
+@keyframes cdAppear {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+/* Atualize o seletor .result:hover::after para isto */
+.result:hover::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 45px;
+    height: 45px;
+    background:
+        /* Base prateada do CD */
+        repeating-conic-gradient(from 0.15turn, 
+            #0000 0 12%, #0008 15%, #ff03, #0f03, #0ff3, #00f3, #f0f3 23%, #fff0 25% 50%),
+        repeating-conic-gradient(from -0.1turn, 
+            #fff0 0 10%, #fffa 15% 20%, #fff0 25% 50%),
+        #ddd;
+    mask: radial-gradient(farthest-side circle, 
+           #0000 15%, #0008 0 15.5%, #0005 0 20%, #0008 0 20.5%, #0005 0 25%, #000 0 97%, #0005 0 99%, #000c 0);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    animation: cdAppear 0.8s forwards;
+    z-index: 0;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* Adicione estas animações para o CD */
+@keyframes cdSpin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Efeito de brilho no CD */
+.result:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, 
+        rgba(255,255,255,0.8) 0%, 
+        rgba(255,255,255,0) 70%);
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+    animation: cdShine 0.8s 0.3s forwards;
+}
+
+@keyframes cdShine {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 0.4; transform: scale(1.5); }
+}
+/* Efeito de borda quando está tocando */
+.result.playing {
+    box-shadow: 
+        0 0 0 2px var(--checkbox-playing),
+        0 8px 16px rgba(0, 0, 0, 0.15);
+    animation: pulseBorder 2s infinite;
+}
+
+@keyframes pulseBorder {
+    0% { box-shadow: 0 0 0 2px var(--checkbox-color), 0 8px 16px rgba(0, 0, 0, 0.15); }
+    50% { box-shadow: 0 0 0 4px var(--checkbox-color), 0 8px 24px rgba(0, 0, 0, 0.2); }
+    100% { box-shadow: 0 0 0 2px var(--checkbox-color), 0 8px 16px rgba(0, 0, 0, 0.15); }
+}
+
+
+
+.music-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(51, 51, 51, 0.9);
+    padding: 10px 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    transition: all 0.3s ease; /* Adicionamos transição suave */
+}
+
+.music-player.expanded {
+    padding-top: 20px; /* Espaço extra quando expandido */
+}
+
+
+.progress-container {
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--checkbox-color);
+    border-radius: 5px;
+    width: 0%;
+    transition: width 0.1s linear;
+    
+}
+
+.progress-container:hover .progress-bar {
+    background: #4CAF50;
+}
+
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #ddd;
+}
+
+
+
+        .content-categories {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+            border-bottom: 2px solid;
+            padding: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .category {
+            font-weight: 500; 
+            color: var(--secondary-color); 
+            transition: .4s ease-in;
+            padding: 10px;
+            cursor: pointer;
+            margin: 5px;
+            text-align: center;
+        }
+
+        .category:hover {
+            background-color: hsla(159, 46%, 52%, 0.259);
+            border-radius: 8px;
+        }
+
+        /* Playlist Container - Versão Centralizada */
+.playlist-container {
+    position: fixed;
+    bottom: 170px !important;
+    height: 70vh;
+    left: 0;
+    right: 0;
+    background: rgba(217, 231, 226, 0.801);
+    backdrop-filter: blur(6px);
+    border-radius: 20px 20px;
+    padding: 25px 25px 15px;
+    max-height: 63vh;
+    overflow-y: auto; /* Isso deve estar aqui */
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    z-index: 9999 !important;
+    display: none;
+}
+
+.playlist-container.active #playlist li {
+    opacity: 0;
+    transform: translateX(-2px);
+    animation: itemEntry 0.4s forwards;
+}
+
+.playlist-container.active ~ .container .cdrom {
+    z-index: -1 !important; /* Força ficar atrás */
+}
+
+
+
+@keyframes itemEntry {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+        .playlist-container.active {
+            transform: translateY(0);
+            display: block;
+            bottom: 0;
+            touch-action: auto;
+        }
+
+
+.playlist-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+        z-index: 9998 !important; /* Fica logo abaixo da playlist */
+
+    display: none;
+    backdrop-filter: blur(5px) sepia(30%);
+    background: rgba(0, 0, 0, 0.6);
+    touch-action: none;
+}
+
+.playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(51, 51, 51, 0.15);
+    position: relative;
+}
+
+.playlist-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.playlist-header h3:before,
+.playlist-header h3:after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(51, 51, 51, 0.3);
+    font-size: 1.2rem;
+}
+
+.playlist-header h3:before {
+    left: -10px;
+}
+
+.playlist-header h3:after {
+    right: -10px;
+}
+
+.playlist-close {
+    outline: none !important;
+    box-shadow: none !important;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    outline: none;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    transition: all 0.3s ease;
+}
+
+.playlist-close i.fa-times {
+    transition: all 0.3s ease;
+    display: block; /* Garante que o ícone seja um bloco independente */
+        transform-origin: center center; /* Gira no próprio centro */
+
+}
+
+.playlist-close:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.playlist-close:hover {
+    transform: rotate(90deg);
+     background: transparent !important; /* Remove qualquer fundo ao passar mouse */
+}
+
+
+#playlist {
+    overflow-y: auto;
+    padding-right: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--terciary-color) transparent;
+}
+
+#playlist.has-scroll {
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* Mantenha os estilos do scrollbar */
+#playlist::-webkit-scrollbar {
+    width: 6px;
+}
+
+#playlist::-webkit-scrollbar-thumb {
+    background-color: rgba(51, 51, 51, 0.4);
+    border-radius: 3px;
+}
+
+#playlist::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#playlist li {
+    text-align: left;
+    padding: 12px 20px;
+    margin: 0 auto 8px;
+    max-width: 95%;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid transparent;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#playlist li:before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--checkbox-playing);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#playlist li:hover {
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#playlist li:hover:before {
+    opacity: 1;
+}
+
+#playlist li.playing {
+    background: var(--checkbox-color);
+    color: #333;
+    font-weight: bold;
+    border-left: 4px solid #9f3545;
+    padding-left: 16px;
+}
+
+#playlist li.playing:before {
+    display: none;
+}
+
+.playlist-container::-webkit-scrollbar-track {
+    background-color: #33333300;
+}
+
+.playlist-container::-webkit-scrollbar-thumb {
+    background-color: rgba(51, 51, 51, 0.3);
+    border-radius: 4px;
+}
+
+.playlist-container::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+}
+
+.playlist-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.playlist-container ul li {
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(51, 51, 51, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.playlist-container ul li:last-child {
+    border-bottom: none;
+}
+
+.playlist-container ul li:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.playlist-container ul li.playing {
+    background-color: var(--checkbox-color);
+    color: #333;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(159, 53, 69, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(159, 53, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(159, 53, 69, 0); }
+}
+
+.playlist-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    z-index: 2;
+}
+
+.playlist-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    z-index: 2;
+}
+
+/* Botão da playlist no canto superior direito */
+        .abrir-playlist {
+            position: fixed;
+            top: 22px;
+            right: 22px; /* Posição espelhada do botão esquerdo */
+            max-width: 120px;
+            width: auto;
+            min-width: 100px; /* Largura mínima igual ao Catálogo */
+            cursor: pointer;
+            color: #fff;
+            background-color: #333333cd;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Roboto Slab', serif;
+            font-size: 1rem; /* Tamanho igual */
+            border: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            text-align: center;
+            box-sizing: border-box; /* Garante que o padding não altere a largura total */
+    }
+
+.delete-button {
+    margin-left: auto;
+    font-size: 0.7rem;
+    background: rgba(255, 107, 107, 0.9);
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.delete-button:hover {
+    background-color: #e74c3c;
+    transform: scale(1.1);
+}
+/* Efeito vinil retrô */
+.playlist-header:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+}
+
+/* Estilo para os controles da playlist */
+.playlist-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Ícone de volume (agora à esquerda do botão de excluir) */
+.now-playing-indicator {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.playlist-container ul li:hover .now-playing-indicator {
+    opacity: 1;
+}
+
+/* Efeito de fita cassete para os itens */
+#playlist li:after {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 12px;
+    background: rgba(51, 51, 51, 0.1);
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#playlist li:hover:after {
+    opacity: 1;
+}
+
+        .favoritar-button {
+            background-color: #333333cd;
+            color: snow;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 13px;
+            margin-right: 5px;
+        }
+
+        .favoritar-button:hover {
+            background-color: hsla(159, 72%, 75%, 0.157);
+        }
+
+        /* Painel de informações (canto esquerdo) */
+        .painel-informacoes {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            font-family: 'Roboto Slab', serif;
+            position: fixed;
+            top: 0;
+            left: -340px;
+            width: 300px;
+            height: 100vh;
+            transition: left 0.4s ease;
+            overflow-y: auto;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+             transform: perspective(1000px) rotateY(-10deg);
+    transform-origin: left center;
+        }
+
+        .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1999;
+    display: none;
+}
+
+painel-informacoes.active ~ .overlay {
+    display: block;
+}
+
+/* Ajuste para mobile */
+
+        /* Estilizando a barra de rolagem do painel do catálogo */
+.painel-informacoes::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de rolagem */
+}
+
+.painel-informacoes::-webkit-scrollbar-track {
+    background: hsla(159, 100%, 44%, 0.2); /* Cor do track - combina com seu gradiente */
+    border-radius: 10px;
+}
+
+.painel-informacoes::-webkit-scrollbar-thumb {
+    background: #333333cc; /* Cor do thumb - combina com seus botões */
+    border-radius: 10px;
+}
+
+.painel-informacoes::-webkit-scrollbar-thumb:hover {
+    background: #343434eb; /* Cor quando hover - igual ao hover dos botões */
+}
+
+        .painel-informacoes.active {
+            left: 0;
+            background-color: #333333e8;
+                transform: perspective(1000px) rotateY(0);
+                
+
+        }
+        .painel-informacoes h2 {
+            color: var(--checkbox-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed rgba(159, 53%, 69%, 0.3);
+            text-align: center;
+        } 
+        .painel-informacoes ul {
+            list-style-type: none;
+            padding: 0;
+            color: snow;
+        }
+
+        .painel-informacoes ul li {
+            margin-bottom: 10px;
+            padding: 5px;
+            animation: itemEntry 0.5s forwards;
+}
+
+
+
+        .painel-informacoes ul li:hover {
+            background-color: #33333334;
+            border-radius: 3px;
+        }
+
+        .painel-toggle {
+           display: block;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            color: #fff;
+            background-color: #333333cd;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Roboto Slab', serif;
+            font-size: 1rem; /* Mesmo tamanho do botão Playlist */
+            border: none; /* Remove borda se houver */
+            transition: all 0.3s ease;
+            z-index: 1000;
+            max-width: 120px; /* Mesma largura máxima */
+            width: auto; /* Largura automática como o outro botão */
+            text-align: center; /* Alinhamento centralizado */
+        }
+
+        .painel-toggle.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+       .painel-toggle:hover, .abrir-playlist:hover {
+            background-color: #343434eb;
+            transform: translateY(-2px);
+        }
+
+        .fechar-painel {
+            position: absolute;
+            right: 10px;
+            cursor: pointer;
+            color: #000000;
+            background-color: #ffffffec;
+            padding: 5px 10px;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            font-size: 14px;
+             display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .fechar-painel:hover {
+            background-color: #fafafa;
+                transform: rotate(90deg);
+
+        }
+
+        /* Controles de áudio */
+         #controls {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 0 20px; /* Adicionado padding para não colar nas bordas */
+            box-sizing: border-box; /* Garante que o padding não some com a largura */
+            }
+
+
+
+        @media (max-width: 480px) {
+ 
+            .abrir-playlist{
+                right: 19px;
+            }
+             #controls {
+                padding: 0 15px; /* Padding menor em telas pequenas */
+            }
+            
+            #controls button {
+                height: 45px; /* Altura um pouco menor */
+            }
+
+            .container{
+                padding-bottom: 20px;
+
+            }
+         
+    
+            }
+
+
+        #controls button {
+           width: 100%;
+            max-width: 240px; /* Largura máxima */
+            height: 50px;
+            padding: 0;
+            margin: 0; /* Removida a margem superior/inferior */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #333333cd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        #controls button:hover {
+            background-color: #343434eb;
+            transform: scale(1.05);
+        }
+
+        /* Alerta personalizado */
+        #custom-alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(120deg, #4381bbcd, #21377eb9, #00000005);
+            background-size: 700% 700%;
+            animation: Gradient 43s ease infinite;
+            filter: brightness(1.4);
+            z-index: 1001;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        @keyframes Gradient {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        .custom-alert-content {
+            font-family: 'Roboto Slab', serif;
+            color: snow;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .custom-alert-content p {
+            margin: 10px 0;
+        }
+
+        .fecharguia {
+            background-color: #d32424e0;
+            padding: 8px 15px;
+            margin-top: 15px;
+            font-family: 'Roboto Slab', serif;
+            font-size: 15px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .fecharguia:hover {
+            background-color: #0ff3;
+        }
+
+        /* Media Queries para responsividade */
+        @media (min-width: 768px) {
+        .singles-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    
+    /* Quando há múltiplos singles, eles ficam lado a lado */
+    .singles-grid.has-multiple {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+            .search {
+                flex-direction: row;
+              
+                font-family: 'Roboto Slab', serif;
+            }
+
+            .searching #results {
+                opacity: 0.5;
+            }
+
+            input[type="text"] {
+                width: 70%;
+                border-radius: 5px 0 0 5px;
+                margin-bottom: 0;
+            }
+
+            button.pesquisa {
+                width: 30%;
+                border-radius: 0 5px 5px 0;
+            }
+
+            .search button.pesquisa:hover {
+                background-color: #343434eb;
+                transform: translateY(-2px);
+            }
+
+            .category {
+                padding: 15px 30px;
+            }
+
+            .playlist-container {
+                left: 50%;
+                transform: translate(-50%, 100%);
+                width: 80%;
+                max-width: 600px;
+                border-radius: 10px;
+            }
+
+            .playlist-container.active {
+                transform: translate(-50%, 0);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .container {
+                margin-top: 90px;
+            }
+
+            h1 {
+                font-size: 3.8rem;
+            }
+
+            input[type="text"] {
+                font-size: 1.1rem;
+            }
+
+            button {
+                font-size: 1.2rem;
+            }
+
+            .category {
+                padding: 20px 50px;
+            }
+        }
+        
+  
+        /* Estilo para as estrelas de favorito */
+        .favorite-star {
+    font-size: 1.4rem;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 24px;
+    color: #666;
+    height: 24px;
+    background: transparent !important; /* Fundo sempre transparente */
+        border: none !important;
+        cursor: pointer;
+
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+    
+}
+
+        .playlist-container.active ~ .container .favorite-star,
+.painel-informacoes.active ~ .container .favorite-star {
+    z-index: -1; /* Esconde atrás quando painéis estiverem abertos */
+}
+
+
+        .favorite-star::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+            
+    bottom: -8px;
+    border-radius: 50%;
+}
+
+.favorite-star i {
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    display: block;
+    transform-origin: center center;
+}
+        
+        .favorite-star:hover i {
+              transform: rotate(15deg) scale(1.2);
+                      border-radius: 50%;
+
+
+          }       
+          
+          .favorite-star i.fas {
+          color: gold !important;
+           text-shadow: 0 0 3px rgba(255, 215, 0, 0.5);
+               border-radius: 50%;
+
+        }
+           
+
+/* Efeito quando favoritada */
+.favorite-star i.fas:hover {
+    transform: rotate(-15deg) scale(1.2);
+    filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.5));
+}
+
+/* Animação quando favorita */
+@keyframes starPulse {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(10deg) scale(1.3); }
+    100% { transform: rotate(0deg) scale(1); }
+}
+
+.favorite-star.just-favorited i.fas {
+    animation: starPulse 0.6s ease;    
+}
+        
+        /* Efeito de clique nos botões */
+        button:active {
+            transform: scale(0.95);
+        }
+
+
+/* Animação principal atualizada */
+@keyframes equalize {
+    0%, 100% { 
+        transform: scaleY(0.6); 
+        background: linear-gradient(to top, var(--checkbox-color), #8fd3c9);
+    }
+    50% { 
+        transform: scaleY(1.2); 
+        background: linear-gradient(to top, #8fd3c9, var(--checkbox-color));
+    }
+}
+
+
+
+.section-title {
+    color: #333;
+    font-size: 1.3rem;
+    padding-bottom: 5px;
+    margin-left: 10px;
+    text-align: center;
+}
+
+
+.singles-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    height: 100%;
+}
+
+.single-card {
+    background: rgba(251, 246, 239, 0.8);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    width: 100%; /* Ocupa toda a largura disponível */
+}
+
+
+.single-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.single-cover-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    overflow: hidden;
+}
+
+.single-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.single-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.single-card:hover .single-overlay {
+    opacity: 1;
+}
+
+.single-overlay i {
+    font-size: 1.5rem;
+}
+
+.single-info {
+    padding: 12px;
+}
+
+.single-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.single-info p {
+    margin: 0;
+    font-size: 0.7rem;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.play-single-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: var(--checkbox-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 0.3s ease;
+}
+
+.single-card:hover .play-single-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.play-single-btn:hover {
+    background: var(--checkbox-playing);
+    transform: scale(1.1) translateY(0);
+}
+
+.favorite-star::before {
+    background: rgb(251, 246, 239);
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+
+.now-playing {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+    /* Estilo atualizado para o botão de reinício */
+    .restart-song {
+        position: absolute;
+        right: 0; /* Posiciona no canto direito */
+        top: -32px; /* Posiciona acima da barra de progresso */
+        border: none;
+        border-radius: 50%;
+        width: 15px;
+        height:15px;
+        color: white;
+        cursor: pointer;
+        display: none; /* Inicialmente escondido */
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 1;
+        background-color: transparent !important;
+    }
+
+    
+    .restart-song:hover {
+    color: var(--checkbox-color);
+
+    }
+    
+    .progress-container {
+        position: relative; /* Container precisa ser relativo para posicionamento absoluto do botão */
+    }
+
+    @keyframes spin {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.rotate-on-click {
+  animation: spin 0.3s ease-in-out;
+}
+
+/* Estilo para os nomes de artistas no catálogo */
+.artist-name {
+    position: relative;
+    padding-left: 25px;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+               
+}
+
+.artist-name::before {
+    content: "◉";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--checkbox-color);
+    font-size: 0.7rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    
+}
+
+.artist-name:hover {
+    color: #fff;
+    text-shadow: 0 0 5px rgba(159, 53%, 69%, 0.5);
+}
+
+.artist-name:hover::before {
+    opacity: 1;
+    animation: pulse 1.5s infinite;
+}
+
+.painel-informacoes::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+@keyframes pulse {
+    0% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.3); }
+    100% { transform: translateY(-50%) scale(1); }
+}
+
+
+.painel-informacoes ul {
+    list-style-type: none;
+    padding: 0 10px;
+}
+
+.painel-informacoes ul li {
+    padding: 8px 15px;
+    margin-bottom: 5px;
+    position: relative;
+    transition: all 0.3s ease;
+    border-left: 2px solid transparent;
+}
+
+.painel-informacoes ul li:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 2px solid var(--checkbox-color);
+    transform: translateX(5px);
+}
+
+.painel-informacoes ul li strong {
+    color: var(--checkbox-color);
+    font-size: 1rem;
+    margin-right: 5px;
+}
+
+/* Container principal dos álbuns */
+.discography-container {
+    display: flex;
+    flex-direction: column;
+}
+.discography-layout {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.singles-container {
+    display: none;
+    width: 300px;
+}
+
+.album-grid.no-singles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.with-singles-layout .singles-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.album-header {
+    position: relative;
+    width: 100%;
+    min-height: 280px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    color: white;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.25);
+    margin-bottom: 20px;
+}
+
+/* Fundo desfocado */
+.album-header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px) brightness(1.1);
+    z-index: 1;
+    transform: scale(1.02);
+}
+
+.album-header-container {
+    grid-column: 1 / -1; /* Ocupa todas as colunas do grid */
+    margin-bottom: 10px;
+}
+
+
+.album-header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%);
+    z-index: 2;
+}
+
+/* Conteúdo do cabeçalho */
+.album-header-content {
+    margin-left: 50px;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: flex-end;
+    gap: 30px;
+    width: 100%;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.album-cover-large-container {
+    width: 180px;
+    height: 180px;
+    flex-shrink: 0;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    border-radius: 8px;
+    overflow: hidden;
+    transform: translateY(-10px);
+    border: 2px solid rgba(255,255,255,0.1);
+}
+
+.album-cover-large {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+/* Informações do álbum */
+.album-header-info {
+    flex: 1;
+    padding-bottom: 10px;
+}
+
+.album-info-large {
+    flex: 1;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.album-type {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    color: rgba(255,255,255,0.9);
+}
+
+/* Título do álbum - Mais evidente */
+.album-title {
+    font-size: 2.8rem;
+    margin: 0 0 15px 0;
+    font-weight: 800;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+    line-height: 1.1;
+    color: #fff;
+    letter-spacing: -0.5px;
+}
+
+/* Metadados */
+.album-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.9);
+}
+
+.album-artist {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.album-year, .album-tracks {
+    opacity: 0.9;
+}
+
+.songs-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 0 10px;
+}
+
+.album-back-button {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 4;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(5px);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.album-back-button:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateX(-3px);
+}
+
+
+/* Quando TEM singles */
+.album-grid.with-singles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.back-button {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.back-button:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateX(-3px);
+}
+.songs-grid-container {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+/* Quando NÃO há singles - 4 colunas de álbuns */
+.album-grid:not(.has-singles) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+}
+.albums-container {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Layout padrão (com singles) */
+
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+    padding: 5px;
+}
+
+.album-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+    width: 100%;
+}
+
+.discography-layout.has-singles .album-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+
+.singles-section {
+    margin-top: 20px;
+}
+
+
+.singles-grid, .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    padding: 10px;
+}
+
+/* Cards */
+.album-card, .single-card {
+    background: rgba(251, 246, 239, 0.9);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.album-cover-container, .single-cover-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    overflow: hidden;
+}
+
+.album-cover, .single-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+@media (max-width: 1200px) {
+    .album-header-content {
+        padding: 30px;
+    }
+    .album-title {
+        font-size: 2.4rem;
+    }
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .discography-container.no-singles-layout .album-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .discography-container.no-singles-layout .album-grid .album-card:nth-child(n+4) {
+        grid-column: span 1;
+    }
+    
+    .album-header {
+        min-height: 240px;
+    }
+    
+    .album-header-content {
+        padding: 30px;
+        gap: 25px;
+    }
+    
+    .album-cover-large-container {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .album-title {
+        font-size: 2.2rem;
+        margin-bottom: 12px;
+    }
+    
+    .album-artist {
+        font-size: 0.8rem;
+    }
+    
+    .album-meta {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .album-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .discography-container.no-singles-layout .album-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .album-header {
+        height: 200px;
+    }
+    
+    .album-title {
+        font-size: 1.6rem;
+    }
+    
+    .songs-container {
+        grid-template-columns: 1fr;
+    }
+    
+   
+    
+}
+
+/* Layout quando não tem singles (Beyoncé case) */
+.discography-container.no-singles-layout {
+    display: block;
+}
+
+.discography-container.no-singles-layout .album-grid {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.discography-container.no-singles-layout .album-grid .album-card:nth-child(n+5) {
+    grid-column: span 2;
+}
+
+
+.features-section {
+    margin-top: 30px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .discography-container.no-singles-layout .album-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .discography-container.no-singles-layout .album-grid .album-card:nth-child(n+5) {
+        grid-column: span 1;
+    }
+    .album-header {
+        min-height: 220px;
+    }
+    
+    .album-header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 25px 20px;
+        gap: 20px;
+    }
+    
+    .album-cover-large-container {
+        width: 140px;
+        height: 140px;
+        transform: translateY(0);
+        margin-top: 20px;
+    }
+    
+    .album-title {
+        font-size: 1.9rem;
+        margin-bottom: 10px;
+    }
+    
+    .album-header-info {
+        padding-bottom: 0;
+        width: 100%;
+        margin-left: 90px;
+    }
+    
+    .album-back-button {
+        top: 15px;
+        left: 15px;
+        width: 40px;
+        height: 40px;
+    }
+        .album-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 15px;
+    }
+    
+    .album-info h3 {
+        font-size: 0.9rem;
+    }
+      
+    .painel-toggle {
+
+        left: 5%; /* Alinhamento relativo igual ao botão Playlist */
+        right: auto; /* Garante que o left tenha prioridade */
+        top: 22px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        max-width: 110px;
+        min-width: 110px; /* Ajuste proporcional para mobile */   
+     }
+.abrir-playlist{
+    padding: 8px 12px;
+    right: 5%;
+     font-size: 0.9rem;
+        max-width: 110px;
+        min-width: 110px; 
+        left: auto;
+}
+}
+
+@media (max-width: 605px) {
+.album-header {
+        border-radius: 0;
+        margin-left: -20px;
+        margin-right: -20px;
+        width: calc(100% + 40px);
+        min-height: 200px;
+    }
+    
+    .album-header-content {
+        padding: 20px 15px;
+    }
+    
+    .album-title {
+        font-size: 1.4rem;
+        margin-right: 70px;
+    }
+     .album-cover-large {
+        margin-bottom: -85px;
+        margin-left: -51px;
+        width: 130px;
+        height: 130px;
+    }
+    
+    .album-meta {
+        font-size: 0.85rem;
+    }
+
+}
+
+@media (max-width: 420px) {
+    .album-header {
+        min-height: 180px;
+    }
+    
+  .album-title {
+        font-size: 1rem;
+        margin-right: 70px;
+    }
+    
+      .album-cover-large {
+        margin-bottom: -85px;
+        margin-left: -51px;
+        width: 125px;
+        height: 125px;
+    }
+    .album-type {
+        font-size: 0.75rem;
+    }
+    
+    .album-meta {
+        gap: 8px;
+        font-size: 0.8rem;
+    }
+    
+    .album-back-button {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+     .album-grid:not(.has-singles) {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+    .album-header-overlay {
+        padding: 15px 10px;
+        gap: 15px;
+        border-radius: 40px;
+    }
+    
+}
+
+ @media (max-width: 390px) {
+ .album-header {
+    position: relative;
+    min-width: 160px;
+    min-height: 180px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex
+  }
+
+  
+
+  .album-grid:not(.has-singles) {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+    .album-title {
+        font-size: 1rem;
+        margin-right: 70px;
+    }
+    
+    .album-cover-large {
+        margin-bottom: -85px;
+        margin-left: -51px;
+        width: 130px;
+        height: 130px;
+    }
+    
+    .album-header-content {
+        padding: 15px 10px;
+        gap: 15px;
+        border-radius: 40px;
+    }
+    .album-artist{
+        font-size: 0.7rem;
+    }
+}
+
+/* Card do álbum */
+.album-card {
+    background: rgba(251, 246, 239, 0.9);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.album-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Container da capa */
+.album-cover-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* Mantém a proporção quadrada */
+    overflow: hidden;
+}
+
+
+/* Imagem da capa */
+.album-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.album-card:hover .album-cover {
+    transform: scale(1.05);
+}
+
+/* Overlay sutil */
+.album-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 30%);
+    display: flex;
+    align-items: flex-end;
+    padding: 10px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Informações do álbum */
+.album-info {
+    padding: 10px;
+    text-align: center;
+}
+
+.album-info h3 {
+    font-size: 0.95rem;
+    margin: 0 0 4px 0;
+    color: #333;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.album-info p {
+    font-size: 0.8rem;
+    margin: 0;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Efeito de brilho na borda */
+.album-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: linear-gradient(135deg, rgba(159, 53, 69, 0.1) 0%, rgba(159, 53, 69, 0) 50%) border-box;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* Contador de músicas (badge) */
+.song-count {
+    letter-spacing: 0.4px;
+    background: #343434;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 6px;
+    align-self: flex-start;
+    border-radius: 10px;
+}
+
+@keyframes pulseHighlight {
+    0% { box-shadow: 0 0 0 0 rgba(159, 53, 69, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(159, 53, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(159, 53, 69, 0); }
+}
+
+/* Efeito de brilho na borda */
+.album-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: linear-gradient(135deg, rgba(159, 53, 69, 0.15) 0%, rgba(159, 53, 69, 0) 50%) border-box;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent !important;
+    padding: 15px;
+    box-shadow: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    grid-column: 1 / -1;
+}
+
+.back-button:hover {
+    color: #333;
+    transform: translateX(-3px);
+}
+
+/* Estilo base (igual ao restart) */
+.pause-song {
+    position: absolute;
+    right: 30px; 
+    top: -32px;
+    background: transparent !important;
+    border: none;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    color: white;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+/* Efeito hover (opcional) */
+.pause-song:hover {
+    color: var(--checkbox-color);
+}
+
+.features-section {
+    grid-column: 1 / -1; /* Ocupa todas as colunas */
+}
+
+
+
+.features-section .section-title {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    padding-left: 0;
+    text-align: center;
+    position: relative;
+}
+
+.features-section .section-title::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: var(--terciary-color);
+}
+
+/* Container do texto que vai ter o efeito */
+.text-container {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    transition: all 0.4s ease;
+}
+
+/* Efeito quando em hover */
+.single-card:hover .text-container,
+.album-card:hover .text-container {
+    overflow: visible;
+    white-space: nowrap;
+    text-overflow: clip;
+    animation: scrollReveal 5s linear infinite;
+}
+
+/* Animação do scroll */
+@keyframes scrollReveal {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(calc(100% - 100vw)); }
+    100% { transform: translateX(0); }
+}
+
+/* Ajuste para não quebrar layout */
+.single-info, .album-info {
+    overflow: hidden;
+}
+
+.section-subtitle {
+    color: #555;
+    font-size: 1.1rem;
+    margin: 5px 0 10px 10px;
+    font-weight: 500;
+    position: relative;
+    padding-left: 15px;
+}
+
+.section-subtitle::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: #1378e3;
+    border-radius: 50%;
+}
+
+.singles-section .section-subtitle::before {
+    background: #ff6b6b;
+}
+
+.features-section .section-subtitle::before {
+    background: #6b6bff;
+}

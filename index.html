@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Vintage Music Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="image" sizes="16x16" href="./image/music-note (1).png">
+      <link rel="stylesheet" href="css/style.css">
+</head>
+<style>
+    
+
+
+</style>
+<body>
+
+  <div class="music-player">
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+    <button class="restart-song" id="restartSong" title="Voltar ao início">
+        <i class="fas fa-undo"></i>
+    </button>
+    <!-- Novo botão de pausa -->
+    <button class="pause-song" id="pauseSong" title="Pausar">
+        <i class="fas fa-pause"></i>
+    </button>
+</div>
+    <div class="time-display">
+        <span id="currentTime">0:00</span>
+        <span id="duration">0:00</span>
+    </div>
+</div>
+
+<!-- Painel do catálogo -->
+<div class="painel-informacoes" id="painelInformacoes">
+    <div class="fechar-painel" onclick="fecharPainel()">✕</div>
+    <h2>Catálogo de<br>artistas</h2>
+    <ul>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Tyler, The Creator')">Tyler, The Creator</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Kendrick Lamar')">Kendrick Lamar</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Summer Walker')">Summer Walker</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Pink Pantheress')">Pink Pantheress</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('BLACKPINK')">BLACKPINK</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Lana Del Rey')">Lana Del Rey</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Tame Impala')">Tame Impala</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Andrea Valle')">Andrea Valle</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Marina Sena')">Marina Sena</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Miley Cyrus')">Miley Cyrus</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('The Weeknd')">The Weeknd</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Billie Eilish')">Billie Eilish</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Don Toliver')">Don Toliver</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Hotel Ugly')">Hotel Ugly</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('FKA Twigs')">FKA Twigs</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Ethel Cain')">Ethel Cain</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Lady Gaga')">Lady Gaga</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Kali Uchis')">Kali Uchis</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Charli xcx')">Charli xcx</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Sevdaliza')">Sevdaliza</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Madonna')">Madonna</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Doja Cat')">Doja Cat</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Beyoncé')">Beyoncé</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('JENNIE')">JENNIE</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Rihanna')">Rihanna</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Gorillaz')">Gorillaz</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Doechii')">Doechii</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('TYLA')">TYLA</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Anitta')">Anitta</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Urias')">Urias</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('LISA')">LISA</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('Raye')">Raye</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('SZA')">SZA</span></li>
+        <li><strong>♪ </strong> <span class="artist-name" onclick="searchArtist('IZA')">IZA</span></li>
+    </ul>
+</div>
+
+    <div class="overlay" id="overlay" onclick="fecharPainel()"></div>
+
+    <div class="container">
+    <div class="cdrom"></div>
+    <header>
+        <h1 id="title" >Vintage Music Player</h1>
+    </header>
+
+   <div class="search">
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Pesquisar músicas..."
+    onkeydown="if (event.key === 'Enter') search()"
+  >
+  <button class="pesquisa" onclick="search()">Pesquisar</button>
+</div>
+
+<div id="results"></div>
+
+
+  <div id="controls">
+        <button class="clique" onclick="togglePlayPause()">
+            <i id="playPauseIcon" class="fas fa-play"></i>
+        </button>
+    </div>
+</div>
+
+    
+  <!-- Botão do catálogo (canto superior esquerdo) com equalizador -->
+<div style="display: flex; align-items: center; position: fixed; top: 20px; left: 20px; gap: 10px;">
+    <div class="painel-toggle" id="painelToggle" onclick="abrirPainel()">Catálogo</div>
+
+    <!-- Botão da playlist (canto superior direito) -->
+    <button class="abrir-playlist" onclick="mostrarOcultarPlaylist()">Playlist</button>
+
+<div class="playlist-overlay" id="playlistOverlay"></div>
+
+    <!-- Playlist (parte inferior) -->
+   <div class="playlist-container" id="playlistContainer">
+    <div class="playlist-header">
+        <h3>Sua Playlist</h3>
+        <button class="playlist-close" onclick="mostrarOcultarPlaylist()" aria-label="Fechar playlist">
+    <i class="fas fa-times"></i>
+</button>
+    </div>
+    <ul id="playlist"></ul>
+</div>
+    <!-- Controles de áudio (parte inferior) -->
+    <audio id="audioPlayer" controls style="display: none;"></audio>
+
+      <div id="sound-effects">
+        <audio id="click-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+        <audio id="star-on-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.mp3"></audio>
+        <audio id="star-off-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3"></audio>
+        <audio id="panel-open-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-modern-click-box-check-1120.mp3"></audio>
+    </div>
+
+
+
+
+<script src="js/script.js"></script>
+</body>
+
+</html>
