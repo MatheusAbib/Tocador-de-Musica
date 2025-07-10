@@ -2006,10 +2006,17 @@ painel-informacoes.active ~ .overlay {
 }
 
 @media (max-width: 420px) {
-    .album-header {
-        min-height: 180px;
-    }
-    
+ .album-header {
+    position: relative;
+    min-width: 160px;
+    min-height: 180px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+         margin: -7px; /* Margens laterais para não colar nas bordas */
+        width: calc(110% - 20px); /* Compensa as margens */
+  }
+
   .album-title {
         font-size: 1rem;
         margin-right: 70px;
@@ -2027,22 +2034,17 @@ painel-informacoes.active ~ .overlay {
     
     .album-meta {
         gap: 8px;
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
     
     .album-back-button {
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
         font-size: 0.9rem;
     }
      .album-grid:not(.has-singles) {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
 }
-    .album-header-overlay {
-        padding: 15px 10px;
-        gap: 15px;
-        border-radius: 40px;
-    }
     
 }
 
@@ -2053,7 +2055,9 @@ painel-informacoes.active ~ .overlay {
     min-height: 180px;
     border-radius: 10px;
     overflow: hidden;
-    display: flex
+    display: flex;
+         margin: -7px; /* Margens laterais para não colar nas bordas */
+        width: calc(110% - 20px); /* Compensa as margens */
   }
 
   
@@ -2073,11 +2077,7 @@ painel-informacoes.active ~ .overlay {
         height: 130px;
     }
     
-    .album-header-content {
-        padding: 15px 10px;
-        gap: 15px;
-        border-radius: 40px;
-    }
+ 
     .album-artist{
         font-size: 0.7rem;
     }

@@ -1456,7 +1456,6 @@ function showSongs(artist, albumName) {
                     <h1 class="album-title">${albumName}</h1>
                     <div class="album-meta">
                         <span class="album-artist">${artist}</span>
-                        <span class="album-year">• ${new Date().getFullYear()}</span>
                         <span class="album-tracks">• ${albumData.songs.length} ${albumData.songs.length === 1 ? 'música' : 'músicas'}</span>
                     </div>
                 </div>
