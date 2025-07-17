@@ -118,6 +118,7 @@ const musicDatabase = {
                 { title: "Ultraviolence", audioSrc: "musica/Lana Del Rey - Ultraviolence (Lyrics) [EAivfIiUlNg].mp3" },
                 { title: "Sad Girl", audioSrc: "musica/Lana Del Rey - Sad Girl (Lyrics) [ouCFIChSlUk].mp3" },
                 { title: "Pretty When You Cry ", audioSrc: "musica/Pretty When You Cry _ Lana Del Rey _ Lyrics [NeV1nxOE0kY].mp3" },
+                { title: "West Coast", audioSrc: "/musica/Lana Del Rey- West Coast Lyrics [nP-l51Hlb1I].mp3" },
             ]
         },
         "Born To Die: Paradise Edition": {
@@ -186,7 +187,7 @@ const musicDatabase = {
         songs: [
             { title: "São Paulo", audioSrc: "musica/São Paulo [p8_ugAjWI5I].mp3", featuredArtist: "Anitta" },
             { title: "The Abyss", audioSrc: "musica/The Weeknd, Lana Del Rey - The Abyss (Audio) [S3ncfrQPpjs].mp3", featuredArtist: "Lana Del Rey" },
-            { title: "Timeless REMIX", audioSrc: "musica/The Weeknd - Timeless Remix ft. Playboi Carti & Doechii (Official Audio) [DaNQN1LeSnI].mp3", featuredArtist: "Doechii, Playboi Carti" }
+            { title: "Timeless", audioSrc: "musica/The Weeknd - Timeless Remix ft. Playboi Carti & Doechii (Official Audio) [DaNQN1LeSnI].mp3", featuredArtist: "Doechii, Playboi Carti" }
         ]
     },
     "After Hours": {
@@ -245,8 +246,8 @@ const musicDatabase = {
     },
 
     "SZA": {
-        "SOS LANA": {
-            cover: "https://variety.com/wp-content/uploads/2024/12/albumcovertreatment-10-1.jpg?w=1000&h=562&crop=1",
+        "SOS": {
+            cover: "https://ratedrnb.com/cdn/2022/12/sza-sos-album-cover-ratedrnb-scaled.jpg",
             songs: [
                 { title: "BMF", audioSrc: "musica/SZA - BMF (Official Audio) [hWjwNgiLMgA].mp3" },
                 { title: "Kill Bill", audioSrc: "musica/SZA - Kill Bill (Official Audio) [SQnc1QibapQ].mp3" },
@@ -317,7 +318,7 @@ const musicDatabase = {
                 { title: "Jealous", audioSrc: "musica/Beyoncé - Jealous (Audio) [Py8Vzm3L3T4].mp3" },
                 { title: "Blow", audioSrc: "musica/Blow - Beyoncé [uUEK0jlwPWU].mp3" },
                 { title: "Haunted", audioSrc: "musica/utomp3.com - Beyoncé  Haunted Audio.mp3" },
-                { title: "Flawless REMIX", audioSrc: "musica/Flawless Remix [qZaLAAcehX4].mp3", featuredArtist: "Nicki Minaj" },
+                { title: "Flawless", audioSrc: "musica/Flawless Remix [qZaLAAcehX4].mp3", featuredArtist: "Nicki Minaj" },
                 { title: "Pretty Hurts", audioSrc: "musica/Beyonce - Pretty Hurts Lyrics [o2hXyCyk-t4].mp3" },
             ]
         },
@@ -329,7 +330,7 @@ const musicDatabase = {
             ]
         },
         "Cowboy Carter": {
-            cover: "https://media.kagstv.com/assets/KYTX/images/b8016018-d266-4dd6-bf8d-8b26e835e330/b8016018-d266-4dd6-bf8d-8b26e835e330_750x422.jpg", // Substitua por URL real
+            cover: "https://akamai.sscdn.co/letras/360x360/albuns/1/c/e/2/1930311712005724.jpg", // Substitua por URL real
             songs: [
                 { title: "Bodyguard", audioSrc: "musica/utomp3.com - Beyoncé  BODYGUARD Official Lyric Video.mp3" },
                 { title: "Spaghetti", audioSrc: "musica/Beyonce - Spaghetti lyrics [DBDKCMwn2ik].mp3" },
@@ -937,7 +938,19 @@ const musicDatabase = {
             songs: [
                 { title: "Oh My Love", audioSrc: "musica/FKA twigs - oh my love (audio) [snuVJEFZBns].mp3" }
             ]
-        }
+        },
+        
+                "_singles": {
+  "songs": [
+    {
+      "title": "Perfectly",
+           audioSrc: "musica/FKA twigs - Perfectly [KPpw_580QUU].mp3",
+
+      "isSingle": true,
+      "cover": "https://static.stereogum.com/uploads/2025/07/Perfectly-1752670204-1000x1000.jpg"
+    },
+  ]
+}
     },
 
     // Charli XCX
@@ -964,7 +977,7 @@ const musicDatabase = {
 
     // Lady Gaga
     "Lady Gaga": {
-        "Mayhen": {
+        "Mayhem": {
             cover: "https://tse2.mm.bing.net/th/id/OIP.lmRxu171kjBCI0O61K7FfQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
             songs: [
                 { title: "Abracadabra", audioSrc: "musica/Lady Gaga - Abracadabra (Official Audio) [LXuSOkf2M3c].mp3" },
@@ -2179,4 +2192,6 @@ function getAllSongsFromDatabase() {
     }
     return allSongs;
 }
+
+
 

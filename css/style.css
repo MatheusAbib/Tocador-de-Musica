@@ -445,7 +445,6 @@
     border-radius: 20px 20px;
     padding: 25px 25px 15px;
     max-height: 63vh;
-    overflow-y: auto; /* Isso deve estar aqui */
     transform: translateY(100%);
     transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     z-index: 9999 !important;
@@ -500,8 +499,9 @@
     align-items: center;
     margin-bottom: 20px;
     padding-bottom: 15px;
+    z-index: 2;
     border-bottom: 1px solid rgba(51, 51, 51, 0.15);
-    position: relative;
+    position: sticky;
 }
 
 .playlist-header h3 {
@@ -575,6 +575,7 @@
     padding-right: 5px;
     scrollbar-width: thin;
     scrollbar-color: var(--terciary-color) transparent;
+    max-height: 50vh
 }
 
 #playlist.has-scroll {
