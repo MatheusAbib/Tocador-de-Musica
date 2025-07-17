@@ -717,7 +717,7 @@ const musicDatabase = {
             cover: "https://m.media-amazon.com/images/I/61IeCixjIZL._SX466_.jpg",
             songs: [
                 { title: "Consideration", audioSrc: "musica/utomp3.com - Consideration.mp3", featuredArtist: "SZA"},
-                { title: "Same Ol' Mistakes", audioSrc: "musica/Same Ol' Mistakes [y3OBsTTUsjk].mp3" },
+                { title: "Same Ol' Mistakes", audioSrc: "musica/Same Ol’ Mistakes [y3OBsTTUsjk].mp3" },
                 { title: "Desperato", audioSrc: "musica/Desperado - Rihanna (Lyrics) [amY-JAQch0E].mp3" },
                 { title: "Woo", audioSrc: "musica/Woo - Rihanna (Lyrics) _ Send for me [JBb36ZvWZuA].mp3" },
                 { title: "Needed Me", audioSrc: "musica/Rihanna - Needed Me (Lyrics) [Ni06ODnrEsk].mp3" },
