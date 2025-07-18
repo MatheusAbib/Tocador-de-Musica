@@ -188,7 +188,7 @@
         }
 
         button {
-            padding: 12px;
+            padding: 10px;
             font-size: 1rem;
             background-color: #333333cd;
             color: #fff;
@@ -2073,6 +2073,7 @@ painel-informacoes.active ~ .overlay {
         gap: 8px;
         font-size: 0.7rem;
     }
+
     
     .album-back-button {
         width: 30px;

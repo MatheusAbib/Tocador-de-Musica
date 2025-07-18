@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Vintage Music Player</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
     <link rel="icon" type="image" sizes="16x16" href="./image/music-note (1).png">
       <link rel="stylesheet" href="css/style.css">
 </head>
@@ -87,10 +90,14 @@
   <input
     type="text"
     id="searchInput"
-    placeholder="Pesquisar músicas..."
+    placeholder="Digite seu artista..."
     onkeydown="if (event.key === 'Enter') search()"
   >
-  <button class="pesquisa" onclick="search()">Pesquisar</button>
+<button class="pesquisa" onclick="search()">
+  <i class="fas fa-search" style="font-size: 18px; margin-right: 8px;"></i>
+  Pesquisar
+</button>
+
 </div>
 
 <div id="results"></div>
