@@ -43,7 +43,7 @@
 
             /*Esse é o quadro principal*/
         .container {
-            width: 90%;
+            width: 55%;
              position: relative;
             z-index: 0;
             max-width: 830px;
@@ -1104,9 +1104,10 @@ painel-informacoes.active ~ .overlay {
             }
 
             input[type="text"] {
-                width: 70%;
+                width: 65%;
                 border-radius: 5px 0 0 5px;
                 margin-bottom: 0;
+                margin-left: 21px;
             }
 
             button.pesquisa {
@@ -1150,7 +1151,7 @@ painel-informacoes.active ~ .overlay {
             }
 
             button {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .category {
@@ -2206,21 +2207,6 @@ painel-informacoes.active ~ .overlay {
     text-overflow: ellipsis;
 }
 
-/* Efeito de brilho na borda */
-.album-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 10px;
-    border: 1px solid transparent;
-    background: linear-gradient(135deg, rgba(159, 53, 69, 0.1) 0%, rgba(159, 53, 69, 0) 50%) border-box;
-    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    pointer-events: none;
-}
 
 /* Contador de músicas (badge) */
 .song-count {
@@ -2241,20 +2227,7 @@ painel-informacoes.active ~ .overlay {
 }
 
 /* Efeito de brilho na borda */
-.album-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 10px;
-    border: 1px solid transparent;
-    background: linear-gradient(135deg, rgba(159, 53, 69, 0.15) 0%, rgba(159, 53, 69, 0) 50%) border-box;
-    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    pointer-events: none;
-}
+
 
 .back-button {
     display: flex;
@@ -2277,7 +2250,7 @@ painel-informacoes.active ~ .overlay {
 /* Estilo base (igual ao restart) */
 .pause-song {
     position: absolute;
-    right: 30px; 
+    right: 35px; 
     top: -32px;
     background: transparent !important;
     border: none;

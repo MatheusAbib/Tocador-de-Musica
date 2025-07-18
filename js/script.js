@@ -1190,41 +1190,7 @@ audioSrc: "musica/WES - KAWASAKI feat. Urias (Clipe Oficial) [xYrP9hx_sls].mp3",
             // Atualiza o tempo atual
             currentTimeDisplay.textContent = formatTime(currentTime);
         });
-        
-        // Função para reiniciar a música
- function restartSong() {
-    if (audioPlayer.src) {
-        // Para e redefine completamente o áudio
-        audioPlayer.pause();
-        audioPlayer.currentTime = 0;
-        
-        // Atualiza a UI imediatamente
-        progressBar.style.width = '0%';
-        currentTimeDisplay.textContent = '0:00';
-        
-        // Se estava tocando antes, reinicia a reprodução
-        if (isPlaying) {
-            audioPlayer.play().catch(e => console.error("Erro ao reiniciar:", e));
-        }
-        
-        // Adiciona um pequeno delay para garantir que o reset seja aplicado
-        setTimeout(() => {
-            audioPlayer.currentTime = 0; // Força o reset novamente para garantir
-        }, 50);
-    }
-}
-        
-        // Event listener para o botão de reinício
-restartSongBtn.addEventListener('click', function() {
-    restartSong();
-    
-    // Feedback visual
-    const icon = this.querySelector('i');
-    icon.classList.add('rotate-on-click');
-    setTimeout(() => {
-        icon.classList.remove('rotate-on-click');
-    }, 300);
-});        
+         
         // Exemplo de como carregar uma música (substitua com sua lógica real)
         function loadExampleSong() {
             audioPlayer.src = 'sua-musica.mp3';
@@ -1403,7 +1369,7 @@ function playMusic(audioSrc, title, artist) {
 
     // Toca a música
     audioPlayer.play().then(() => {
-        isPlaying = true;
+        updatePlayPauseState(true);
         
         // Mostra o botão de reinício
         document.getElementById('restartSong').style.display = 'flex';
@@ -1425,12 +1391,9 @@ function playMusic(audioSrc, title, artist) {
         // Atualiza a playlist para destacar a música atual
         atualizarPlaylist();
         
-    }).catch(error => {
-        console.error("Erro ao reproduzir música:", error);
-        // Mostra mensagem de erro (opcional)
-        showCustomAlert("Erro ao reproduzir a música. Tente novamente.");
-        // Para a rotação do CD se houver erro
-        stopCdRotation();
+  }).catch(error => {
+        console.error("Erro ao reproduzir:", error);
+        updatePlayPauseState(false);
     });
 }
 
@@ -1863,10 +1826,15 @@ function togglePlayPause() {
     playSound('click-sound');
 
     if (isPlaying) {
+        // Pausa a música
         audioPlayer.pause();
         isPlaying = false;
+        
+        // Atualiza ambos os ícones
         playPauseIcon.classList.remove('fa-pause');
         playPauseIcon.classList.add('fa-play');
+        document.getElementById('pauseSong').innerHTML = '<i class="fas fa-play"></i>';
+        
         stopCdRotation(); // Para o CD mantendo a posição atual
     } else {
         if (!currentAudioSrc) {
@@ -1876,10 +1844,15 @@ function togglePlayPause() {
                 startCdRotation();
             }
         } else {
+            // Toca a música
             audioPlayer.play();
             isPlaying = true;
+            
+            // Atualiza ambos os ícones
             playPauseIcon.classList.remove('fa-play');
             playPauseIcon.classList.add('fa-pause');
+            document.getElementById('pauseSong').innerHTML = '<i class="fas fa-pause"></i>';
+            
             startCdRotation(); // Continua a rotação do CD de onde parou
         }
     }
@@ -1954,13 +1927,14 @@ document.getElementById('playlistOverlay').addEventListener('click', mostrarOcul
     icon.classList.add('rotate-on-click');
   });
 
-  // Quando uma música começa a tocar
-// Mostrar/ocultar quando a música toca/pausa
-// Quando uma música começa a tocar
+  
 audioPlayer.addEventListener('play', function() {
+    isPlaying = true;
     document.getElementById('restartSong').style.display = 'flex';
     document.getElementById('pauseSong').style.display = 'flex';
     document.getElementById('pauseSong').innerHTML = '<i class="fas fa-pause"></i>';
+    playPauseIcon.classList.remove('fa-play');
+    playPauseIcon.classList.add('fa-pause');
 });
 
 audioPlayer.addEventListener('pause', function() {
@@ -1992,8 +1966,10 @@ document.getElementById('pauseSong').addEventListener('click', function(e) {
     }
 });
 
+
 audioPlayer.addEventListener('ended', function() {
     isPlaying = false;
+    document.getElementById('pauseSong').innerHTML = '<i class="fas fa-play"></i>';
     playPauseIcon.classList.remove('fa-pause');
     playPauseIcon.classList.add('fa-play');
     stopCdRotation();
@@ -2191,6 +2167,57 @@ function getAllSongsFromDatabase() {
         }
     }
     return allSongs;
+}
+
+function controlPlayPause() {
+    playSound('click-sound');
+    
+    if (isPlaying) {
+        // Pausar a música
+        audioPlayer.pause();
+        updatePlayPauseState(false);
+    } else {
+        // Tocar a música
+        if (!currentAudioSrc) {
+            const firstResult = document.querySelector('.result');
+            if (firstResult) {
+                firstResult.click();
+            }
+        } else {
+            audioPlayer.play().then(() => {
+                updatePlayPauseState(true);
+            }).catch(error => {
+                console.error("Erro ao reproduzir:", error);
+                showCustomAlert("Erro ao reproduzir a música");
+            });
+        }
+    }
+}
+
+// Função para atualizar o estado visual de ambos os botões
+function updatePlayPauseState(playing) {
+    isPlaying = playing;
+    
+    const pauseBtn = document.getElementById('pauseSong');
+    const playBtn = document.getElementById('playPauseBtn');
+    
+    // Atualiza ambos os botões
+    [pauseBtn, playBtn].forEach(btn => {
+        if (btn) {
+            const icon = btn.querySelector('i');
+            if (icon) {
+                icon.className = playing ? 'fas fa-pause' : 'fas fa-play';
+            }
+            playing ? btn.classList.add('playing-control') : btn.classList.remove('playing-control');
+        }
+    });
+    
+    // Controle da rotação do CD
+    if (playing) {
+        startCdRotation();
+    } else {
+        stopCdRotation();
+    }
 }
 
 
