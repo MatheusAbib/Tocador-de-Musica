@@ -118,7 +118,7 @@ const musicDatabase = {
                 { title: "Ultraviolence", audioSrc: "musica/Lana Del Rey - Ultraviolence (Lyrics) [EAivfIiUlNg].mp3" },
                 { title: "Sad Girl", audioSrc: "musica/Lana Del Rey - Sad Girl (Lyrics) [ouCFIChSlUk].mp3" },
                 { title: "Pretty When You Cry ", audioSrc: "musica/Pretty When You Cry _ Lana Del Rey _ Lyrics [NeV1nxOE0kY].mp3" },
-                { title: "West Coast", audioSrc: "/musica/Lana Del Rey- West Coast Lyrics [nP-l51Hlb1I].mp3" },
+                { title: "West Coast", audioSrc: "musica/Lana Del Rey- West Coast Lyrics [nP-l51Hlb1I].mp3" },
             ]
         },
         "Born To Die: Paradise Edition": {
@@ -404,7 +404,7 @@ const musicDatabase = {
            audioSrc: "musica/BLACKPINK '뛰어(JUMP)' (Color Coded Lyrics) [3tiLDChrokA].mp3",
 
       "isSingle": true,
-      "cover": "https://tse4.mm.bing.net/th/id/OIF.HQtnezk8gJjhcNU8Ji4SdQ?rs=1&pid=ImgDetMain&o=7&rm=3"
+      "cover": "https://www.allkpop.com/upload/2025/07/content/141039/web_data/allkpop_1752504036_resized-blackpink-jump-1200px.png"
     },
      {
       "title": "DDU-DU DDU-DU",
@@ -2220,5 +2220,13 @@ function updatePlayPauseState(playing) {
     }
 }
 
+// Quando uma música começa a tocar
+audioPlayer.addEventListener('play', function() {
+    document.querySelector('.music-player').classList.add('expanded');
+});
 
+// Quando a música termina
+audioPlayer.addEventListener('ended', function() {
+    document.querySelector('.music-player').classList.remove('expanded');
+});
 
