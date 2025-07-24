@@ -1162,7 +1162,7 @@ painel-informacoes.active ~ .overlay {
   
         /* Estilo para as estrelas de favorito */
         .favorite-star {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     position: absolute;
     top: 12px;
     right: 12px;
@@ -1187,16 +1187,7 @@ painel-informacoes.active ~ .overlay {
 }
 
 
-        .favorite-star::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-            
-    bottom: -8px;
-    border-radius: 50%;
-}
+
 
 .favorite-star i {
     transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
@@ -1378,17 +1369,6 @@ painel-informacoes.active ~ .overlay {
     transform: scale(1.1) translateY(0);
 }
 
-.favorite-star::before {
-    background: rgb(251, 246, 239);
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    z-index: -1;
-}
 
 
 .now-playing {
