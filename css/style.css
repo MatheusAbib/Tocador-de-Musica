@@ -48,11 +48,11 @@
             z-index: 0;
             max-width: 830px;
             margin: 70px auto 20px;
-            padding: 20px;    
-            padding-bottom: 40px; /* Espaço para os controles */
+            padding: 23px;    
+            padding-bottom: 30px; /* Espaço para os controles */
             border-radius: 7px;
             box-shadow: 10px 40px 30px rgba(0, 0, 0, 0.1);
-            background-color: #d6dee79e;
+            background-color: #d6dee7ad;
             position: relative;
         }
 
@@ -1138,9 +1138,6 @@ painel-informacoes.active ~ .overlay {
         }
 
         @media (min-width: 992px) {
-            .container {
-                margin-top: 90px;
-            }
 
             h1 {
                 font-size: 3.8rem;
@@ -1741,7 +1738,7 @@ painel-informacoes.active ~ .overlay {
 .album-grid:not(.has-singles) {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 20px;
+    gap: 10px;
 }
 .albums-container {
     flex: 1;
@@ -1754,7 +1751,7 @@ painel-informacoes.active ~ .overlay {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 20px;
-    padding: 5px;
+    padding: 10px;
 }
 
 .album-detail-grid {
@@ -1779,7 +1776,7 @@ painel-informacoes.active ~ .overlay {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 15px;
-    padding: 10px;
+    padding: 12px;
 }
 
 /* Cards */
@@ -1894,7 +1891,7 @@ painel-informacoes.active ~ .overlay {
 
 
 .features-section {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .features-grid {
