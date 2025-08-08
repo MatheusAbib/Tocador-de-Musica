@@ -1,6 +1,6 @@
 # Tocador de Música Online 🎵
 
-**Vintage Music Player** é uma aplicação web para ouvir músicas de forma prática e interativa. Com uma interface intuitiva e responsiva, ela oferece recursos como:
+**Vintage Music Player** é uma aplicação web para ouvir músicas de forma prática e interativa com uma interface intuitiva e responsiva.
 
 ## Funcionalidades
 
