@@ -428,7 +428,7 @@ const musicDatabase = {
     // ... (continuar com os outros artistas seguindo o mesmo padrão)
     "Kali Uchis": {
         "Red Moon in Venus": {
-            cover: "https://tse1.explicit.bing.net/th/id/OIP.ElMviHyNS2VH3HdSz84w3gHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+            cover: "https://akamai.sscdn.co/letras/360x360/albuns/c/4/6/4/1712041677843811.jpg",
             songs: [
                 { title: "I Wish You Roses", audioSrc: "musica/Kali Uchis - I Wish you Roses (Official Music Video) [-Y7zc0eO26k].mp3" },
                 { title: "Moonlight", audioSrc: "musica/Kali Uchis - Moonlight (Official Lyric Video) [8F7Q-4PZCjA].mp3" }, 
@@ -479,7 +479,7 @@ const musicDatabase = {
            audioSrc: "musica/utomp3.com - KAYTRANADA  10 Official Video ft Kali Uchis.mp3",
 
       "isSingle": true,
-      "cover": "https://preview.redd.it/60557luexce81.jpg?width=1200&format=pjpg&auto=webp&s=bc41efe6faa52b5ce220744e050a74a71f45ba53"
+      "cover": "https://hypeddit-gates-prod.s3.amazonaws.com/rtaedh_coverartmanual"
     },
     {
       "title": "Si No Es Contigo",
@@ -851,7 +851,7 @@ const musicDatabase = {
             ]
         },
         "Flower Boy": {
-            cover: "https://external-preview.redd.it/faLJLRjg2WBgPgjM0Gfyrdl5oZDGxx4XMt_8eS8ecTA.png?format=pjpg&auto=webp&s=932cc887e6cb82118f068bacd9808e22bf5c5278",
+            cover: "https://i.scdn.co/image/ab67616d0000b2738940ac99f49e44f59e6f7fb3",
             songs: [
                 { title: "See You Again", audioSrc: "musica/SEE YOU AGAIN featuring Kali Uchis [TGgcC5xg9YI].mp3", featuredArtist: "Kali Uchis" },
                 { title: "Garden Shed", audioSrc: "musica/Tyler, The Creator - Garden Shed (feat. Estelle) [hUEm9uu85RI].mp3", featuredArtist: "Estelle" },
@@ -1112,7 +1112,7 @@ const musicDatabase = {
            audioSrc: "musica/SEVDALIZA - MESSIAH (OFFICIAL MUSIC VIDEO) [e8EwHTqeQKU].mp3",
 
       "isSingle": true,
-      "cover": "https://tse3.mm.bing.net/th/id/OIP.ODsUi5STORMDOZVXIjoJFAECEC?rs=1&pid=ImgDetMain&o=7&rm=3"
+      "cover": "https://tse1.mm.bing.net/th/id/OIP.CIozvg_GB75vjLSFpd06HwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
     },
     {
       "title": "Ride Or Die",
