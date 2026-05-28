@@ -10,6 +10,8 @@
         let artistPlayHistory = [];
         let albumPlayHistory = [];
         let lastSearchQuery = '';
+        let currentPlayMode = 'normal';
+        let currentPlaylistContext = [];
 
 
 let artistImageCache = {};
@@ -1358,7 +1360,18 @@ function removeFromPlaylist(event, title, artist) {
 function playFromPlaylist(title, artist) {
     playSound('click-sound');
     
+    const favoriteMusics = JSON.parse(localStorage.getItem('favoriteMusics')) || [];
+    
     let foundSong = null;
+    let songIndex = -1;
+    
+    for (let i = 0; i < favoriteMusics.length; i++) {
+        const music = favoriteMusics[i];
+        if (music.title === title && music.artist === artist) {
+            songIndex = i;
+            break;
+        }
+    }
     
     for (const artistName in musicDatabase) {
         for (const albumName in musicDatabase[artistName]) {
@@ -1380,11 +1393,29 @@ function playFromPlaylist(title, artist) {
     }
     
     if (foundSong) {
-        playMusic(foundSong.audioSrc, foundSong.title, foundSong.artist);
-        atualizarPlaylist(); 
+        const playlistSongs = favoriteMusics.map(music => {
+            for (const artistName in musicDatabase) {
+                for (const albumName in musicDatabase[artistName]) {
+                    const album = musicDatabase[artistName][albumName];
+                    for (const song of album.songs) {
+                        const songArtist = song.featuredArtist ? `${artistName} ft. ${song.featuredArtist}` : artistName;
+                        if (song.title === music.title && songArtist === music.artist) {
+                            return {
+                                audioSrc: song.audioSrc,
+                                title: song.title,
+                                artist: songArtist
+                            };
+                        }
+                    }
+                }
+            }
+            return null;
+        }).filter(s => s !== null);
+        
+        playMusic(foundSong.audioSrc, foundSong.title, foundSong.artist, playlistSongs, songIndex);
+        atualizarPlaylist();
     } else {
         console.error("Música não encontrada no banco de dados:", title, artist);
-        
     }
 }
 function removeFromPlaylist(event, title, artist) {
@@ -1403,7 +1434,7 @@ function hideVolumeControls() {
     volumeControls.classList.remove('visible');
 }
 
-function playMusic(audioSrc, title, artist) {
+function playMusic(audioSrc, title, artist, contextSongs = null, contextIndex = 0) {
     document.querySelectorAll('.result').forEach(el => {
         el.classList.remove('playing');
     });
@@ -1420,6 +1451,15 @@ function playMusic(audioSrc, title, artist) {
     });
 
     currentAudioSrc = audioSrc;
+    
+    if (contextSongs) {
+        currentPlaylistContext = contextSongs;
+        currentPlaylistIndex = contextIndex;
+        currentPlayMode = 'playlist';
+    } else {
+        currentPlayMode = 'normal';
+        currentPlaylistContext = [];
+    }
     
     if (audioPlayer.src !== audioSrc) {
         audioPlayer.src = audioSrc;
@@ -1676,6 +1716,20 @@ function showAlbums(artist) {
         
         artistData._singles.songs.forEach(song => {
             const songDiv = createSingleCard(song, artist);
+            
+            songDiv.addEventListener('click', (e) => {
+                if (!e.target.closest('.favorite-star')) {
+                    const singlesPlaylist = artistData._singles.songs.map(s => ({
+                        title: s.title,
+                        artist: s.featuredArtist ? `${artist} ft. ${s.featuredArtist}` : artist,
+                        audioSrc: s.audioSrc
+                    }));
+                    const songIndex = singlesPlaylist.findIndex(s => s.title === song.title);
+                    const artistName = song.featuredArtist ? `${artist} ft. ${song.featuredArtist}` : artist;
+                    playMusic(song.audioSrc, song.title, artistName, singlesPlaylist, songIndex);
+                }
+            });
+            
             singlesGrid.appendChild(songDiv);
         });
     } else {
@@ -1717,6 +1771,19 @@ function showAlbums(artist) {
         
         featuredSongs.forEach(song => {
             const songDiv = createSingleCard(song);
+            
+            songDiv.addEventListener('click', (e) => {
+                if (!e.target.closest('.favorite-star')) {
+                    const featuresPlaylist = featuredSongs.map(s => ({
+                        title: s.title,
+                        artist: s.artist,
+                        audioSrc: s.audioSrc
+                    }));
+                    const songIndex = featuresPlaylist.findIndex(s => s.title === song.title);
+                    playMusic(song.audioSrc, song.title, song.artist, featuresPlaylist, songIndex);
+                }
+            });
+            
             featuresGrid.appendChild(songDiv);
         });
     } else {
@@ -1952,6 +2019,7 @@ function playNextAlbumRandom() {
         playMusic(selectedSong.audioSrc, selectedSong.title, selectedSong.artist);
     }
 }
+
 function nextMusic() {
     if (globalRandomActive) {
         playNextGlobalRandom();
@@ -1959,6 +2027,13 @@ function nextMusic() {
         playNextArtistRandom();
     } else if (currentAlbumRandomActive) {
         playNextAlbumRandom();
+    } else if (currentPlayMode === 'playlist' && currentPlaylistContext.length > 0) {
+        let nextIndex = currentPlaylistIndex + 1;
+        if (nextIndex >= currentPlaylistContext.length) {
+            nextIndex = 0;
+        }
+        const nextSong = currentPlaylistContext[nextIndex];
+        playMusic(nextSong.audioSrc, nextSong.title, nextSong.artist, currentPlaylistContext, nextIndex);
     } else {
         const favoriteMusics = JSON.parse(localStorage.getItem('favoriteMusics')) || [];
         
@@ -2009,7 +2084,26 @@ function nextMusic() {
         }
         
         if (foundSong) {
-            playMusic(foundSong.audioSrc, foundSong.title, foundSong.artist);
+            const playlistSongs = favoriteMusics.map(music => {
+                for (const artistName in musicDatabase) {
+                    for (const albumName in musicDatabase[artistName]) {
+                        const album = musicDatabase[artistName][albumName];
+                        for (const song of album.songs) {
+                            const songArtist = song.featuredArtist ? `${artistName} ft. ${song.featuredArtist}` : artistName;
+                            if (song.title === music.title && songArtist === music.artist) {
+                                return {
+                                    audioSrc: song.audioSrc,
+                                    title: song.title,
+                                    artist: songArtist
+                                };
+                            }
+                        }
+                    }
+                }
+                return null;
+            }).filter(s => s !== null);
+            
+            playMusic(foundSong.audioSrc, foundSong.title, foundSong.artist, playlistSongs, nextIndex);
         }
     }
 }
@@ -2021,6 +2115,13 @@ function prevMusic() {
         playNextArtistRandom();
     } else if (currentAlbumRandomActive) {
         playNextAlbumRandom();
+    } else if (currentPlayMode === 'playlist' && currentPlaylistContext.length > 0) {
+        let prevIndex = currentPlaylistIndex - 1;
+        if (prevIndex < 0) {
+            prevIndex = currentPlaylistContext.length - 1;
+        }
+        const prevSong = currentPlaylistContext[prevIndex];
+        playMusic(prevSong.audioSrc, prevSong.title, prevSong.artist, currentPlaylistContext, prevIndex);
     } else {
         const favoriteMusics = JSON.parse(localStorage.getItem('favoriteMusics')) || [];
         
@@ -2072,7 +2173,26 @@ function prevMusic() {
         }
         
         if (foundSong) {
-            playMusic(foundSong.audioSrc, foundSong.title, foundSong.artist);
+            const playlistSongs = favoriteMusics.map(music => {
+                for (const artistName in musicDatabase) {
+                    for (const albumName in musicDatabase[artistName]) {
+                        const album = musicDatabase[artistName][albumName];
+                        for (const song of album.songs) {
+                            const songArtist = song.featuredArtist ? `${artistName} ft. ${song.featuredArtist}` : artistName;
+                            if (song.title === music.title && songArtist === music.artist) {
+                                return {
+                                    audioSrc: song.audioSrc,
+                                    title: song.title,
+                                    artist: songArtist
+                                };
+                            }
+                        }
+                    }
+                }
+                return null;
+            }).filter(s => s !== null);
+            
+            playMusic(foundSong.audioSrc, foundSong.title, foundSong.artist, playlistSongs, prevIndex);
         }
     }
 }
@@ -2178,8 +2298,32 @@ function createSingleCard(song, mainArtist = null) {
         </div>
     `;
     
-    songDiv.addEventListener('click', () => {
-        playMusic(song.audioSrc, song.title, artistName);
+    songDiv.addEventListener('click', (e) => {
+        if (!e.target.closest('.favorite-star')) {
+            const singleSongs = [];
+            
+            if (mainArtist) {
+                const artistData = musicDatabase[mainArtist];
+                if (artistData._singles && artistData._singles.songs) {
+                    artistData._singles.songs.forEach(s => {
+                        singleSongs.push({
+                            title: s.title,
+                            artist: s.featuredArtist ? `${mainArtist} ft. ${s.featuredArtist}` : mainArtist,
+                            audioSrc: s.audioSrc
+                        });
+                    });
+                }
+            } else {
+                singleSongs.push({
+                    title: song.title,
+                    artist: artistName,
+                    audioSrc: song.audioSrc
+                });
+            }
+            
+            const songIndex = singleSongs.findIndex(s => s.title === song.title);
+            playMusic(song.audioSrc, song.title, artistName, singleSongs, songIndex);
+        }
     });
     
     return songDiv;
@@ -2247,11 +2391,17 @@ function showSongs(artist, albumName) {
             </div>
         `;
         
-        songDiv.addEventListener('click', (e) => {
-            if (!e.target.closest('.favorite-star')) {
-                playMusic(song.audioSrc, song.title, artistName);
-            }
-        });
+songDiv.addEventListener('click', (e) => {
+    if (!e.target.closest('.favorite-star')) {
+        const albumSongs = albumData.songs.map(s => ({
+            title: s.title,
+            artist: s.featuredArtist ? `${artist} ft. ${s.featuredArtist}` : artist,
+            audioSrc: s.audioSrc
+        }));
+        const songIndex = albumSongs.findIndex(s => s.title === song.title);
+        playMusic(song.audioSrc, artistName, song.title, albumSongs, songIndex);
+    }
+});
         
         songsContainer.appendChild(songDiv);
     });
@@ -2395,20 +2545,37 @@ document.getElementById('pauseSong').addEventListener('click', function(e) {
 });
 
 audioPlayer.addEventListener('ended', function() {
-    isPlaying = false;
-    document.getElementById('pauseSong').innerHTML = '<i class="fas fa-play"></i>';
-    playPauseIcon.classList.remove('fa-pause');
-    playPauseIcon.classList.add('fa-play');
-    stopCdRotation();
-    document.getElementById('restartSong').style.display = 'none';
-    document.getElementById('pauseSong').style.display = 'none';
-    document.getElementById('prevSong').style.display = 'none';
-    document.getElementById('nextSong').style.display = 'none';
-    hideVolumeControls();
-    document.getElementById('progressBar').style.width = '0%';
-    document.getElementById('currentTime').textContent = '0:00';
+    if (currentPlayMode === 'playlist' && currentPlaylistContext.length > 0) {
+        let nextIndex = currentPlaylistIndex + 1;
+        if (nextIndex >= currentPlaylistContext.length) {
+            nextIndex = 0;
+        }
+        const nextSong = currentPlaylistContext[nextIndex];
+        playMusic(nextSong.audioSrc, nextSong.title, nextSong.artist, currentPlaylistContext, nextIndex);
+    } else if (globalRandomActive) {
+        playNextGlobalRandom();
+    } else if (currentArtistRandomActive) {
+        playNextArtistRandom();
+    } else if (currentAlbumRandomActive) {
+        playNextAlbumRandom();
+    } else {
+        isPlaying = false;
+        playPauseIcon.classList.remove('fa-pause');
+        document.querySelector('.cdrom')?.classList.remove('girar');
+        playPauseIcon.classList.add('fa-play');
+        document.getElementById('progressBar').style.width = '0%';
+        document.getElementById('currentTime').textContent = '0:00';
+        
+        const playingItems = document.querySelectorAll('.playlist-container li.playing');
+        playingItems.forEach(item => item.classList.remove('playing'));
+        
+        document.getElementById('restartSong').style.display = 'none';
+        document.getElementById('pauseSong').style.display = 'none';
+        document.getElementById('prevSong').style.display = 'none';
+        document.getElementById('nextSong').style.display = 'none';
+        hideVolumeControls();
+    }
 });
-
 function searchArtist(artistName) {
     cameFromSearch = false;
     lastSearchQuery = '';
@@ -2506,12 +2673,17 @@ function displayResults(results) {
             </div>
         `;
         
-        resultDiv.addEventListener('click', (e) => {
-            if (!e.target.closest('.favorite-star')) {
-                playMusic(result.audioSrc, result.title, result.artist);
-            }
-        });
-        
+resultDiv.addEventListener('click', (e) => {
+    if (!e.target.closest('.favorite-star')) {
+        const playlist = albumSongs.map(s => ({
+            title: s.title,
+            artist: s.artist,
+            audioSrc: s.audioSrc
+        }));
+        const songIndex = playlist.findIndex(s => s.title === result.title);
+        playMusic(result.audioSrc, result.title, result.artist, playlist, songIndex);
+    }
+});
         resultsContainer.appendChild(resultDiv);
     });
     
@@ -2682,6 +2854,8 @@ function stopAllRandom() {
 function setRandomFilter(filter) {
     globalRandomFilter = filter;
     const filterBtns = document.querySelectorAll('.random-filter-btn');
+    const select = document.getElementById('artistFilterSelect');
+    
     filterBtns.forEach(btn => {
         if (btn.dataset.filter === filter) {
             btn.classList.add('active');
@@ -2689,8 +2863,11 @@ function setRandomFilter(filter) {
             btn.classList.remove('active');
         }
     });
+    
+    if (filter === 'all') {
+        select.value = 'all';
+    }
 }
-
 function startRandomPlayback() {
     if (currentRandomInterval) {
         clearInterval(currentRandomInterval);
@@ -2781,8 +2958,9 @@ function playNextGlobalRandom() {
 
 function populateArtistFilter() {
     const select = document.getElementById('artistFilterSelect');
+    select.innerHTML = '<option value="all">Todos os artistas</option>';
     const artists = Object.keys(musicDatabase);
-    artists.forEach(artist => {
+    artists.sort().forEach(artist => {
         const option = document.createElement('option');
         option.value = artist;
         option.textContent = artist;
@@ -2791,6 +2969,18 @@ function populateArtistFilter() {
 }
 
 populateArtistFilter();
+
+document.getElementById('artistFilterSelect').addEventListener('change', function() {
+    const value = this.value;
+    if (value === 'all') {
+        const allBtn = document.querySelector('.random-filter-btn[data-filter="all"]');
+        if (allBtn) {
+            allBtn.click();
+        }
+    } else {
+        setRandomFilter(value);
+    }
+});
 
 function updatePlayPauseState(playing) {
     isPlaying = playing;

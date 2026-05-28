@@ -1418,7 +1418,7 @@ painel-informacoes.active ~ .overlay {
             }
             
             .playlist-random-btn {
-                width: 100%;
+                width: 40%;
                 justify-content: center;
             }
             
@@ -2549,7 +2549,9 @@ painel-informacoes.active ~ .overlay {
     gap: 25px;
 
 }
-
+.playlist-container{
+    padding: 25px 20px 15px;
+}
     
 }
 
