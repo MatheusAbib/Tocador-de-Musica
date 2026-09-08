@@ -1252,8 +1252,6 @@ audioSrc: "musica/WES - KAWASAKI feat. Urias (Clipe Oficial) [xYrP9hx_sls].mp3",
     },
       
 };
-    
-
         const progressBar = document.getElementById('progressBar');
         const currentTimeDisplay = document.getElementById('currentTime');
         const restartSongBtn = document.getElementById('restartSong');
