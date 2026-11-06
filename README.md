@@ -177,21 +177,21 @@ As principais referências incluem superfícies translúcidas, gradientes azuis,
 <table>
   <tr>
     <td width="50%" align="center">
-      <img src="assets/inspirations/frutiger-aero.jpg" width="100%" alt="Estética Frutiger Aero" />
+      <img src="image/inspirations/frutiger-aero.jpg" width="100%" alt="Estética Frutiger Aero" />
       <sub><b>Frutiger Aero</b> — Natureza, água, transparências e tecnologia.</sub>
     </td>
     <td width="50%" align="center">
-      <img src="assets/inspirations/y2k-player.jpg" width="100%" alt="Music player Y2K" />
+      <img src="image/inspirations/y2k-player.jpg" width="100%" alt="Music player Y2K" />
       <sub><b>Y2K Music Player</b> — Interfaces futuristas, cromados e controles físicos.</sub>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
-      <img src="assets/inspirations/windows-media-player.jpg" width="100%" alt="Windows Media Player clássico" />
+      <img src="image/inspirations/windows-media-player.jpg" width="100%" alt="Windows Media Player clássico" />
       <sub><b>Windows Media Player</b> — Bibliotecas musicais e navegação por álbuns.</sub>
     </td>
     <td width="50%" align="center">
-      <img src="assets/inspirations/windows-vista.jpg" width="100%" alt="Windows Vista Aero" />
+      <img src="image/inspirations/windows-vista.jpg" width="100%" alt="Windows Vista Aero" />
       <sub><b>Windows Vista</b> — Janelas translúcidas, botões e experiência desktop.</sub>
     </td>
   </tr>
