@@ -1,5 +1,5 @@
 
-# 🎵 Vintage Music Player
+# 💿 Vintage Music Player
 
 O **Vintage Music Player** é uma aplicação web de reprodução musical que combina a nostalgia dos dispositivos digitais dos anos 2000 com uma experiência interativa de exploração musical.
 
@@ -7,7 +7,7 @@ Inspirado nas estéticas **Y2K e Frutiger Aero**, o projeto apresenta uma interf
 
 A aplicação permite explorar discografias, ouvir músicas, descobrir artistas, organizar favoritos e controlar a reprodução diretamente pelo navegador.
 
-> 🔗 **Acesse o projeto online:** [Vintage Music Player](https://matheusabib.github.io/Tocador-de-Musica/)
+> 🔗 **Acesse o projeto online:** (https://vintagemusicplayery2k.vercel.app/)
 
 ---
 
