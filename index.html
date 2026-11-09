@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#a8e8ec">
+    <meta name="description" content="Vintage Music Player — uma experiência musical Y2K, Frutiger Aero e nostalgia digital.">
+    <title>Vintage Music Player</title>
+
+    <link rel="icon" type="image/png" href="./image/logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="dream-environment" aria-hidden="true">
+        <div class="environment-gradient"></div>
+        <div class="environment-grid"></div>
+        <div class="environment-orb environment-orb--one"></div>
+        <div class="environment-orb environment-orb--two"></div>
+        <div class="environment-orb environment-orb--three"></div>
+        <div class="environment-glow"></div>
+        <div class="environment-noise"></div>
+    </div>
+
+    <div class="desktop-shell">
+
+        <header class="desktop-header">
+            <div class="desktop-header__identity">
+    <span class="header-cdrom" aria-hidden="true"></span>
+                <div class="desktop-header__brand">
+                    <span class="desktop-header__name">VMP SYSTEM</span>
+                    <span class="desktop-header__version">DIGITAL AUDIO EXPERIENCE / 2004</span>
+                </div>
+            </div>
+
+            <div class="desktop-header__status">
+                <span class="status-light"></span>
+                <span>SYSTEM ONLINE</span>
+                <span class="desktop-header__separator">/</span>
+                <span>STEREO SOUND</span>
+            </div>
+
+            <div class="desktop-header__actions">
+                <button class="painel-toggle desktop-action" id="painelToggle" onclick="abrirPainel()" aria-label="Abrir catálogo">
+                    <i class="fas fa-compact-disc" aria-hidden="true"></i>
+                    <span>CATÁLOGO</span>
+                </button>
+
+                <button class="abrir-playlist desktop-action" onclick="mostrarOcultarPlaylist()" aria-label="Abrir playlist">
+                    <i class="fas fa-list-ul" aria-hidden="true"></i>
+                    <span>MINHA PLAYLIST</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="desktop-main">
+
+            <div class="desktop-decoration desktop-decoration--left" aria-hidden="true">
+                <span>VINTAGE DIGITAL</span>
+                <span>STEREO SYSTEM</span>
+                <span>EST. 2004</span>
+            </div>
+
+            <div class="vmp-centered-pair">
+
+    <div class="music-player audio-console mp3-device" id="musicPlayer">
+
+        <div class="mp3-device__lanyard" aria-hidden="true"></div>
+        <div class="mp3-device__speaker" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+        <div class="audio-console__decoration" aria-hidden="true">
+            <span class="audio-console__brand">VMP</span>
+            <span class="audio-console__model">DIGITAL STEREO / MODEL 002K</span>
+        </div>
+
+        <div class="audio-console__main">
+
+            <div class="mp3-device__screen-label" aria-hidden="true"><span>✦ DIGITAL DREAM MACHINE</span><span>MP3 / 2004</span></div>
+
+            <div class="audio-console__display">
+
+                <div class="audio-console__display-header">
+                    <span class="audio-console__status">
+                        <span class="audio-console__status-light"></span>
+                        NOW PLAYING
+                    </span>
+                    <span class="audio-console__format">DIGITAL AUDIO ♫</span>
+                </div>
+
+                <div class="now-playing" id="nowPlaying">Selecione uma música</div>
+
+                <div class="audio-console__progress">
+                    <div class="progress-container" id="progressContainer">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+
+                    <div class="time-display">
+                        <span id="currentTime">0:00</span>
+                        <span id="duration">0:00</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mp3-device__controls-label" aria-hidden="true">NAVIGATION / PLAYBACK</div>
+
+            <div class="player-controls audio-console__controls">
+
+                <button class="prev-song" id="prevSong" title="Música anterior" aria-label="Música anterior">
+                    <i class="fas fa-backward" aria-hidden="true"></i>
+                </button>
+
+                <button class="restart-song" id="restartSong" title="Voltar ao início" aria-label="Voltar ao início">
+                    <i class="fas fa-undo" aria-hidden="true"></i>
+                </button>
+
+                <button class="pause-song" id="pauseSong" title="Pausar ou tocar" aria-label="Pausar ou tocar">
+                    <i class="fas fa-pause" aria-hidden="true"></i>
+                </button>
+
+                <button class="next-song" id="nextSong" title="Próxima música" aria-label="Próxima música">
+                    <i class="fas fa-forward" aria-hidden="true"></i>
+                </button>
+
+                <button class="player-favorite-btn" id="playerFavoriteBtn" title="Favoritar música" aria-label="Favoritar música">
+                    <i class="far fa-star" id="playerFavoriteIcon" aria-hidden="true"></i>
+                </button>
+
+            </div>
+
+            <div class="volume-controls audio-console__volume">
+                <span class="audio-console__volume-label">VOL.</span>
+
+                <button class="volume-btn" id="muteBtn" onclick="toggleMute()" aria-label="Ativar ou desativar som">
+                    <i id="muteIcon" class="fas fa-volume-up" aria-hidden="true"></i>
+                </button>
+
+                <input
+                    type="range"
+                    id="volumeSlider"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.7"
+                    class="volume-slider"
+                    aria-label="Volume"
+                >
+            </div>
+
+        </div>
+
+        <button class="player-toggle" id="playerToggle" aria-label="Expandir ou recolher player">
+            <i class="fas fa-chevron-down" id="playerToggleIcon" aria-hidden="true"></i>
+        </button>
+
+        <div class="mp3-device__hardware" aria-hidden="true"><span class="mp3-device__port"></span><span>USB 2.0</span><span class="mp3-device__led"></span><span>POWER</span></div>
+
+        <div class="audio-console__bottom" aria-hidden="true">
+            <span>STEREO SOUND SYSTEM</span>
+            <span>LOVE AT FIRST LISTEN ♡</span>
+            <span>VMP / 2004</span>
+        </div>
+
+    </div>
+
+            <section class="machine-workspace" aria-label="Vintage Music Player">
+
+                <div class="machine-top-label">
+                    <span class="machine-top-label__index">01 / AUDIO TERMINAL</span>
+                    <span class="machine-top-label__edition">DREAM MACHINE EDITION</span>
+                </div>
+
+                <div class="container machine-window" id="mainWindow">
+
+                    <div class="machine-window__topbar">
+                        <div class="window-identity">
+                            <span class="window-identity__icon">
+                                <i class="fas fa-music" aria-hidden="true"></i>
+                            </span>
+                            <span class="window-identity__name">VINTAGE_PLAYER.EXE</span>
+                        </div>
+
+                        <div class="window-topbar__center">
+                            <span>YOUR PERSONAL MUSIC UNIVERSE</span>
+                        </div>
+
+                        <div class="window-actions" role="group" aria-label="Controles da janela">
+                            <button type="button" class="window-action window-action--minimize" id="window-restore" title="Restaurar janela e mostrar MP3" aria-label="Restaurar janela e mostrar MP3">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="window-action window-action--maximize" id="window-maximize" title="Maximizar janela e ocultar MP3" aria-label="Maximizar janela e ocultar MP3">
+                                <i class="far fa-square"></i>
+                            </button>
+                            <button type="button" class="window-action window-action--close" id="window-reset" title="Fechar sessão e voltar ao início" aria-label="Fechar sessão e voltar ao início">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="machine-window__body">
+
+                        <div class="machine-header">
+
+                            <div class="machine-header__label">
+                                <span class="machine-header__serial">VMP-002K</span>
+                                <span class="machine-header__indicator">
+                                    <span class="indicator-dot"></span>
+                                    READY TO PLAY
+                                </span>
+                            </div>
+
+                            <div class="machine-header__title">
+                                <span class="machine-header__eyebrow">
+                                    WELCOME TO YOUR DIGITAL SOUNDSPACE
+                                </span>
+
+                                <h1 id="title">
+                                    <span class="title-line title-line--first">VINTAGE</span>
+                                    <span class="title-line title-line--second">MUSIC PLAYER<span class="title-asterisk">*</span></span>
+                                </h1>
+
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="machine-divider">
+                            <span class="machine-divider__line"></span>
+                            <span class="machine-divider__symbol">✳&#65038;</span>
+                            <span class="machine-divider__line"></span>
+                        </div>
+
+                        <section class="search-module" aria-label="Pesquisar músicas">
+
+                            <div class="module-heading">
+                                <div class="module-heading__left">
+                                    <span class="module-heading__number">01.</span>
+                                    <span class="module-heading__title">MUSIC EXPLORER</span>
+                                </div>
+                                <span class="module-heading__right">FIND YOUR SOUND ↗</span>
+                            </div>
+
+                            <div class="search">
+                                <div class="search-input-wrapper">
+                                    <span class="search-input-icon" aria-hidden="true">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+
+                                    <input
+                                        type="text"
+                                        id="searchInput"
+                                        placeholder="Search your favorite artist..."
+                                        autocomplete="off"
+                                        onkeydown="if (event.key === 'Enter') search()"
+                                        aria-label="Buscar artista"
+                                    >
+
+                                    <button
+                                        class="clear-search"
+                                        id="clearSearch"
+                                        onclick="clearSearch()"
+                                        style="display: none;"
+                                        aria-label="Limpar busca"
+                                    >
+                                        <i class="fas fa-times" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <button class="pesquisa search-submit" onclick="search()" aria-label="Pesquisar">
+                                    <span>SEARCH</span>
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
+
+                            <div class="search-module__footer">
+                                <span>EXPLORE THE MUSIC ARCHIVE</span>
+                                <span>♫ &nbsp; TUNE INTO YOUR WORLD</span>
+                            </div>
+
+                        </section>
+
+                        <section class="library-module" aria-label="Biblioteca musical">
+
+                            <div class="module-heading library-module__heading">
+                                <div class="module-heading__left">
+                                    <span class="module-heading__number">02.</span>
+                                    <span class="module-heading__title">DIGITAL MUSIC ARCHIVE</span>
+                                </div>
+                                <span class="module-heading__right">YOUR COLLECTION / ♪</span>
+                            </div>
+
+                            <div class="library-module__body">
+                                <div id="results"></div>
+                            </div>
+
+                        </section>
+
+                        <section class="quick-player-module" aria-label="Controles principais">
+
+                            <div class="quick-player-module__identity">
+                                <span class="quick-player-module__symbol">
+                                    <i class="fas fa-headphones-alt" aria-hidden="true"></i>
+                                </span>
+
+                                <div>
+                                    <span class="quick-player-module__label">INSTANT PLAY</span>
+                                    <span class="quick-player-module__description">PRESS PLAY TO FEEL SOMETHING</span>
+                                </div>
+                            </div>
+
+                            <div id="controls">
+                                <button class="clique" onclick="togglePlayPause()" aria-label="Tocar ou pausar">
+                                    <i id="playPauseIcon" class="fas fa-play" aria-hidden="true"></i>
+                                </button>
+                            </div>
+
+                            <div class="quick-player-module__decoration" aria-hidden="true">
+                                <span>PLAY</span>
+                                <span>▶</span>
+                            </div>
+
+                        </section>
+
+                    </div>
+
+                    <div class="machine-window__footer">
+                        <span>© VINTAGE MUSIC PLAYER</span>
+                        <span>MADE FOR MUSIC LOVERS ♡</span>
+                        <span>ENDLESS FREQUENCIES / ∞</span>
+                    </div>
+
+                </div>
+
+                <div class="machine-bottom-label">
+                    <span>AN INTERNET TIME CAPSULE</span>
+                    <span>GOOD MUSIC NEVER EXPIRES ✳&#65038;</span>
+                </div>
+
+            </section>
+
+            </div>
+
+            <div class="desktop-decoration desktop-decoration--right" aria-hidden="true">
+                <span>100% DIGITAL</span>
+                <span>100% NOSTALGIC</span>
+                <span>∞ POSSIBILITIES</span>
+            </div>
+
+        </main>
+
+        <footer class="desktop-footer">
+            <span>WELCOME TO THE FUTURE WE IMAGINED IN 2004.</span>
+            <span>VMP / DIGITAL DREAM MACHINE</span>
+        </footer>
+
+    </div>
+
+    <aside class="painel-informacoes catalog-window" id="painelInformacoes" aria-label="Catálogo de artistas">
+
+        <div class="catalog-window__topbar">
+            <div class="catalog-window__identity">
+                <i class="fas fa-compact-disc" aria-hidden="true"></i>
+                <span>MUSIC_LIBRARY.EXE</span>
+            </div>
+
+            <button class="fechar-painel" onclick="fecharPainel()" aria-label="Fechar catálogo">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="catalog-window__body">
+
+            <div class="catalog-window__intro">
+                <span class="catalog-window__eyebrow">WELCOME TO THE ARCHIVE</span>
+                <h2>CATÁLOGO DE<br>ARTISTAS<span>✳&#65038;</span></h2>
+                <p>EXPLORE YOUR DIGITAL MUSIC COLLECTION</p>
+            </div>
+
+            <div class="random-controls">
+                <div class="random-controls__heading">
+                    <i class="fas fa-random" aria-hidden="true"></i>
+                    <span>SHUFFLE STATION</span>
+                </div>
+
+                <button id="randomModeBtn" class="random-mode-btn" onclick="toggleRandomMode()">
+                    <i class="fas fa-random" aria-hidden="true"></i>
+                    <span>PLAY ALEATÓRIO</span>
+                </button>
+
+                <div class="random-filters">
+                    <button class="random-filter-btn active" data-filter="all" onclick="setRandomFilter('all')">
+                        TODOS
+                    </button>
+
+                    <select id="artistFilterSelect" class="artist-filter-select" onchange="setRandomFilter(this.value)" aria-label="Filtrar por artista">
+                        <option value="all">Todos os artistas</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="catalog-window__section-heading">
+                <span>ARTIST DIRECTORY</span>
+                <span>♫</span>
+            </div>
+
+<ul class="catalog-artist-list">
+    <li onclick="searchArtist('Tyler, The Creator')"><strong>♪</strong><span class="artist-name">Tyler, The Creator</span></li>
+    <li onclick="searchArtist('Kendrick Lamar')"><strong>♪</strong><span class="artist-name">Kendrick Lamar</span></li>
+    <li onclick="searchArtist('Summer Walker')"><strong>♪</strong><span class="artist-name">Summer Walker</span></li>
+    <li onclick="searchArtist('PinkPantheress')"><strong>♪</strong><span class="artist-name">PinkPantheress</span></li>
+    <li onclick="searchArtist('BLACKPINK')"><strong>♪</strong><span class="artist-name">BLACKPINK</span></li>
+    <li onclick="searchArtist('Lana Del Rey')"><strong>♪</strong><span class="artist-name">Lana Del Rey</span></li>
+    <li onclick="searchArtist('Tame Impala')"><strong>♪</strong><span class="artist-name">Tame Impala</span></li>
+    <li onclick="searchArtist('Andrea Valle')"><strong>♪</strong><span class="artist-name">Andrea Valle</span></li>
+    <li onclick="searchArtist('Marina Sena')"><strong>♪</strong><span class="artist-name">Marina Sena</span></li>
+    <li onclick="searchArtist('Miley Cyrus')"><strong>♪</strong><span class="artist-name">Miley Cyrus</span></li>
+    <li onclick="searchArtist('The Weeknd')"><strong>♪</strong><span class="artist-name">The Weeknd</span></li>
+    <li onclick="searchArtist('Billie Eilish')"><strong>♪</strong><span class="artist-name">Billie Eilish</span></li>
+    <li onclick="searchArtist('Don Toliver')"><strong>♪</strong><span class="artist-name">Don Toliver</span></li>
+    <li onclick="searchArtist('Hotel Ugly')"><strong>♪</strong><span class="artist-name">Hotel Ugly</span></li>
+    <li onclick="searchArtist('FKA Twigs')"><strong>♪</strong><span class="artist-name">FKA Twigs</span></li>
+    <li onclick="searchArtist('Lady Gaga')"><strong>♪</strong><span class="artist-name">Lady Gaga</span></li>
+    <li onclick="searchArtist('Kali Uchis')"><strong>♪</strong><span class="artist-name">Kali Uchis</span></li>
+    <li onclick="searchArtist('Ethel Cain')"><strong>♪</strong><span class="artist-name">Ethel Cain</span></li>
+    <li onclick="searchArtist('Charli xcx')"><strong>♪</strong><span class="artist-name">Charli xcx</span></li>
+    <li onclick="searchArtist('Marina')"><strong>♪</strong><span class="artist-name">MARINA</span></li>
+    <li onclick="searchArtist('Sevdaliza')"><strong>♪</strong><span class="artist-name">Sevdaliza</span></li>
+    <li onclick="searchArtist('Madonna')"><strong>♪</strong><span class="artist-name">Madonna</span></li>
+    <li onclick="searchArtist('Doja Cat')"><strong>♪</strong><span class="artist-name">Doja Cat</span></li>
+    <li onclick="searchArtist('Beyoncé')"><strong>♪</strong><span class="artist-name">Beyoncé</span></li>
+    <li onclick="searchArtist('JENNIE')"><strong>♪</strong><span class="artist-name">JENNIE</span></li>
+    <li onclick="searchArtist('Rihanna')"><strong>♪</strong><span class="artist-name">Rihanna</span></li>
+    <li onclick="searchArtist('Gorillaz')"><strong>♪</strong><span class="artist-name">Gorillaz</span></li>
+    <li onclick="searchArtist('Doechii')"><strong>♪</strong><span class="artist-name">Doechii</span></li>
+    <li onclick="searchArtist('TYLA')"><strong>♪</strong><span class="artist-name">TYLA</span></li>
+    <li onclick="searchArtist('Anitta')"><strong>♪</strong><span class="artist-name">Anitta</span></li>
+    <li onclick="searchArtist('Urias')"><strong>♪</strong><span class="artist-name">Urias</span></li>
+    <li onclick="searchArtist('LISA')"><strong>♪</strong><span class="artist-name">LISA</span></li>
+    <li onclick="searchArtist('Raye')"><strong>♪</strong><span class="artist-name">Raye</span></li>
+    <li onclick="searchArtist('SZA')"><strong>♪</strong><span class="artist-name">SZA</span></li>
+    <li onclick="searchArtist('IZA')"><strong>♪</strong><span class="artist-name">IZA</span></li>
+</ul>
+
+        </div>
+
+        <div class="catalog-window__footer">
+            <span>VMP ARCHIVE SYSTEM</span>
+            <span>ALL FREQUENCIES WELCOME ♡</span>
+        </div>
+
+    </aside>
+
+    <div class="overlay" id="overlay" onclick="fecharPainel()"></div>
+
+    <div class="playlist-overlay" id="playlistOverlay"></div>
+
+    <aside class="playlist-container playlist-window" id="playlistContainer" aria-label="Minha playlist">
+
+        <div class="playlist-header">
+            <div class="playlist-header-left">
+                <span class="playlist-header__icon">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                </span>
+                <div class="playlist-header__identity">
+                    <span class="playlist-header__filename">MY_PLAYLIST.EXE</span>
+                    <h3>SUA PLAYLIST</h3>
+                </div>
+            </div>
+
+            <div class="playlist-header-right">
+                <button class="playlist-close" onclick="mostrarOcultarPlaylist()" aria-label="Fechar playlist">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="playlist-window__intro">
+            <span>YOUR FAVORITE FREQUENCIES</span>
+            <span>♡ PERSONAL COLLECTION</span>
+        </div>
+
+        <div class="playlist-window__toolbar">
+            <button class="playlist-random-btn" onclick="playRandomFromPlaylist()" title="Tocar aleatório da playlist" aria-label="Tocar aleatório da playlist">
+                <i class="fas fa-random" aria-hidden="true"></i>
+                <span>SHUFFLE PLAYLIST</span>
+            </button>
+        </div>
+
+        <div class="playlist-window__content">
+            <ul id="playlist"></ul>
+        </div>
+
+        <div class="playlist-window__footer">
+            <span>COLLECT THE SOUNDS YOU LOVE</span>
+            <span>★</span>
+        </div>
+
+    </aside>
+
+    <audio id="audioPlayer" preload="metadata" controls hidden></audio>
+
+    <div id="sound-effects" hidden>
+        <audio id="click-sound" preload="auto" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+        <audio id="star-on-sound" preload="auto" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.mp3"></audio>
+        <audio id="star-off-sound" preload="auto" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3"></audio>
+        <audio id="panel-open-sound" preload="auto" src="https://assets.mixkit.co/sfx/preview/mixkit-modern-click-box-check-1120.mp3"></audio>
+    </div>
+
+    <script src="js/database.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+</html>
