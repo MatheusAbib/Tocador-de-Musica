@@ -392,13 +392,51 @@ function updatePlayPauseState(playing) {
     }
 }
 
+
 function updateNowPlaying() {
     if (!nowPlaying) return;
 
-    nowPlaying.textContent = currentPlayingTitle
+    const title = currentPlayingTitle
         ? `${currentPlayingTitle} - ${currentPlayingArtist}`
         : 'Selecione uma música';
+
+    const marquee = document.createElement('div');
+    marquee.className = 'now-playing__marquee';
+
+    const track = document.createElement('div');
+    track.className = 'now-playing__track';
+
+    const firstText = document.createElement('span');
+    firstText.className = 'now-playing__text';
+    firstText.textContent = title;
+
+    track.appendChild(firstText);
+    marquee.appendChild(track);
+    nowPlaying.replaceChildren(marquee);
+
+    const updateScrolling = () => {
+        marquee.classList.remove('is-scrolling');
+        track.style.removeProperty('--scroll-duration');
+
+        const shouldScroll = firstText.scrollWidth - 22 > marquee.clientWidth;
+
+        if (!shouldScroll || !currentPlayingTitle) return;
+
+        const secondText = firstText.cloneNode(true);
+        secondText.setAttribute('aria-hidden', 'true');
+
+        track.appendChild(secondText);
+
+        const distance = firstText.getBoundingClientRect().width;
+        const duration = Math.max(8, distance / 35);
+
+        track.style.setProperty('--scroll-duration', `${duration}s`);
+        marquee.classList.add('is-scrolling');
+    };
+
+    requestAnimationFrame(updateScrolling);
 }
+
 
 function updatePlayingCards() {
     document.querySelectorAll('.result, .single-card').forEach(card => {

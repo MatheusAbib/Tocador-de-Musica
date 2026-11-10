@@ -93,7 +93,11 @@
                     <span class="audio-console__format">DIGITAL AUDIO ♫</span>
                 </div>
 
-                <div class="now-playing" id="nowPlaying">Selecione uma música</div>
+                <div class="now-playing" id="nowPlaying">
+                    <div class="now-playing__marquee">
+                        <span class="now-playing__text">Selecione uma música</span>
+                    </div>
+                </div>
 
                 <div class="audio-console__progress">
                     <div class="progress-container" id="progressContainer">
@@ -298,32 +302,6 @@
 
                             <div class="library-module__body">
                                 <div id="results"></div>
-                            </div>
-
-                        </section>
-
-                        <section class="quick-player-module" aria-label="Controles principais">
-
-                            <div class="quick-player-module__identity">
-                                <span class="quick-player-module__symbol">
-                                    <i class="fas fa-headphones-alt" aria-hidden="true"></i>
-                                </span>
-
-                                <div>
-                                    <span class="quick-player-module__label">INSTANT PLAY</span>
-                                    <span class="quick-player-module__description">PRESS PLAY TO FEEL SOMETHING</span>
-                                </div>
-                            </div>
-
-                            <div id="controls">
-                                <button class="clique" onclick="togglePlayPause()" aria-label="Tocar ou pausar">
-                                    <i id="playPauseIcon" class="fas fa-play" aria-hidden="true"></i>
-                                </button>
-                            </div>
-
-                            <div class="quick-player-module__decoration" aria-hidden="true">
-                                <span>PLAY</span>
-                                <span>▶</span>
                             </div>
 
                         </section>
